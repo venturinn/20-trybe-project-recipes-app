@@ -1,10 +1,20 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
+import './login.css';
 
 function Login() {
+  const history = useHistory();
+  console.log(history);
   return (
-    <div>
-      <p>hello world</p>
-    </div>
+    <section>
+      <p>Login</p>
+      <button
+        type="button"
+        onClick={ () => history.push('/foods') }
+      >
+        enter
+      </button>
+    </section>
   );
 }
 

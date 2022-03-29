@@ -1,7 +1,16 @@
 import React from 'react';
+import Header from '../../components/Header';
+import './foods.css';
 
-export default function Foods() {
+function Foods() {
   return (
-    <div>Foods</div>
+    <section>
+      <Header
+        titleToRender="Foods"
+        searchOptionIsDisabled={ false }
+      />
+    </section>
   );
 }
+
+export default Foods;
