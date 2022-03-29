@@ -1,0 +1,46 @@
+#root {
+  width: 100vw;
+  height: 100vh;
+}
+
+[data-testid="footer"] {
+  background-color: rgb(211, 155, 2);
+  width: 100vw;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+[data-testid="drinks-bottom-btn"] {
+  margin: 4px;
+  border: 1px whitesmoke solid;
+  border-radius: 3px;
+  background-color: rgb(233, 172, 40);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+}
+
+[data-testid="explore-bottom-btn"] {
+  margin: 4px;
+  border: 1px whitesmoke solid;
+  border-radius: 3px;
+  background-color: rgb(233, 172, 40);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+}
+
+[data-testid="food-bottom-btn"] {
+  margin: 4px;
+  border: 1px whitesmoke solid;
+  border-radius: 3px;
+  background-color: rgb(233, 172, 40);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+}
