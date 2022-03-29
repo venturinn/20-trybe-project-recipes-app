@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Redirect } from 'react-router';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 
@@ -6,6 +8,8 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [redirect, setRedirect] = useState(false);
+  const dispatch = useDispatch();
 
   // https://stackoverflow.com/questions/7635533/validate-email-address-textbox-using-javascript
   const verifyEmailFormat = (userEmail) => {
@@ -39,11 +43,18 @@ function Login() {
   };
 
   const buttonClick = () => {
-    console.log('oi');
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+    localStorage.setItem('user', JSON.stringify({ email }));
+
+    dispatch({ type: 'SAVE_USER_EMAIL', payload: email });
+
+    setRedirect(true);
   };
 
   return (
     <div>
+      {redirect && <Redirect to="/foods" />}
       <p>Login</p>
       <Input
         testId="email-input"
