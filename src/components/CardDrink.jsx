@@ -7,7 +7,7 @@ function CardDrink({ recipesList }) {
   // console.log('recipes em cardDrink', recipesList);
 
   const cardLimit = 11;
-  const listToRender = recipesList.filter((item, index) => index <= cardLimit);
+  const listToRender = recipesList.filter((_item, index) => index <= cardLimit);
 
   if (listToRender.length === 1) {
     return (<Redirect push to={ `/drinks/${listToRender[0].idDrink}` } />);

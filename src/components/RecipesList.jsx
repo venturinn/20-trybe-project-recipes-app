@@ -17,7 +17,7 @@ function RecipesList() {
           // procurar um tratamento mais especifico pra esse caso na refatoração
           <div>
             {recipesList.drinks
-             && <CardDrink recipesList={ recipesList.drinks } />}
+            && <CardDrink recipesList={ recipesList.drinks } />}
           </div>
         )}
       </section>
