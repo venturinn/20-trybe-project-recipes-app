@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 function Input(props) {
   const { label, id, name, testId, value, type, onChange, onClick, src } = props;
+
   return (
     <label htmlFor={ id }>
       {label}
@@ -10,7 +11,7 @@ function Input(props) {
         id={ id }
         type={ type }
         name={ name }
-        value={ value }
+        value={ value || '' }
         data-testid={ testId }
         onChange={ onChange }
         onClick={ onClick }
@@ -33,15 +34,15 @@ Input.propTypes = {
 };
 
 Input.defaultProps = {
-  label: '',
-  testId: '',
+  label: null,
+  testId: null,
   type: 'text',
   id: null,
   name: null,
   onChange: null,
   onClick: null,
-  value: '',
   src: null,
+  value: '',
 };
 
 export default Input;
