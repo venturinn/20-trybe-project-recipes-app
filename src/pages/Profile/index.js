@@ -9,7 +9,6 @@ export default function Profile() {
         <Header titleToRender="Profile" />
         <p>Profile</p>
       </section>
-    
       <BottomNav />
     </>
   );
