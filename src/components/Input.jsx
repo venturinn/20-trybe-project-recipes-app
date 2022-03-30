@@ -13,6 +13,7 @@ function Input(props) {
         value={ value }
         data-testid={ testId }
         onChange={ onChange }
+        type={ type }
       />
     </label>
   );
@@ -26,11 +27,13 @@ Input.propTypes = {
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
+  type: PropTypes.string,
 };
 
 Input.defaultProps = {
   label: '',
   testId: '',
+  type: 'text',
 };
 
 export default Input;
