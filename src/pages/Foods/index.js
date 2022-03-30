@@ -1,7 +1,15 @@
 import React from 'react';
+import Header from '../../components/Header';
+import './foods.css';
+import RecipesList from '../../components/RecipesList';
 
-export default function Foods() {
+function Foods() {
   return (
-    <div>Foods</div>
+    <section>
+      <Header />
+      <RecipesList />
+    </section>
   );
 }
+
+export default Foods;

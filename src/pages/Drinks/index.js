@@ -1,7 +1,12 @@
 import React from 'react';
+import Header from '../../components/Header';
+import RecipesList from '../../components/RecipesList';
 
-export default function index() {
+export default function Drinks() {
   return (
-    <div>index</div>
+    <section>
+      <Header />
+      <RecipesList />
+    </section>
   );
 }
