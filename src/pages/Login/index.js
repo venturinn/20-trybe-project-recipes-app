@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router';
 import Button from '../../components/Button';
@@ -20,18 +20,16 @@ function Login() {
     return false;
   };
 
-  const shouldEnabledButton = () => {
+  const shouldEnabledButton = useCallback(() => {
     const emailValid = verifyEmailFormat(email);
-    const minPasswordLength = 7;
+    const minPasswordLength = 6;
 
     if (emailValid && password.length >= minPasswordLength) {
       setButtonDisabled(false);
     } else {
       setButtonDisabled(true);
     }
-  };
-
-  useEffect(() => { shouldEnabledButton(); }, [email, password]);
+  }, [email, password]);
 
   const handleChange = ({ target }) => {
     const { value, name } = target;
@@ -40,6 +38,7 @@ function Login() {
     } else {
       setPassword(value);
     }
+    shouldEnabledButton();
   };
 
   const buttonClick = () => {
