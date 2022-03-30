@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import Button from './Button';
+import Input from './Input';
 import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
@@ -22,21 +22,21 @@ export default function BottomNav() {
 
   return (
     <div data-testid="footer">
-      <Button
+      <Input
         src={ drinkIcon }
-        icon={ <img alt="DrinkIcon" src={ drinkIcon } /> }
+        type="image"
         testId="drinks-bottom-btn"
         onClick={ goToDrinks }
       />
-      <Button
+      <Input
         src={ exploreIcon }
-        icon={ <img alt="ExploreIcon" src={ exploreIcon } /> }
+        type="image"
         testId="explore-bottom-btn"
         onClick={ goToExplore }
       />
-      <Button
+      <Input
         src={ mealIcon }
-        icon={ <img alt="MealIcon" src={ mealIcon } /> }
+        type="image"
         testId="food-bottom-btn"
         onClick={ goToFood }
       />
