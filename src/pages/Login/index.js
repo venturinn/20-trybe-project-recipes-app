@@ -4,7 +4,6 @@ import './login.css';
 
 function Login() {
   const history = useHistory();
-  console.log(history);
   return (
     <section>
       <p>Login</p>

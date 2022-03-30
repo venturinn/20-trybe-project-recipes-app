@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import Input from './Input';
 import Button from './Button';
-import { setSearchBarValues } from '../redux/actions';
+import { requestSearchBarRecipes } from '../redux/actions';
 
 const SEARCH_BAR_INITIAL_STATE = {
-  searchedValue: '',
+  value: '',
   type: '',
 };
 
-function SearchBar() {
+function SearchBar({ currentRoute }) {
   const dispatch = useDispatch();
   const [searchBar, setSearchBar] = useState(SEARCH_BAR_INITIAL_STATE);
 
   const handleSearchBarButtonOnClick = () => {
-    dispatch(setSearchBarValues(searchBar));
+    dispatch(requestSearchBarRecipes(searchBar, currentRoute));
   };
 
   const handleSearchBarOnChange = ({ name, value }) => {
@@ -27,8 +28,8 @@ function SearchBar() {
         <Input
           label=""
           id="search-bar-input"
-          name="searchedValue"
-          value={ searchBar.searchedValue }
+          name="value"
+          value={ searchBar.value }
           type="text"
           testId="search-input"
           onChange={ ({ target }) => handleSearchBarOnChange(target) }
@@ -71,3 +72,7 @@ function SearchBar() {
 }
 
 export default SearchBar;
+
+SearchBar.propTypes = {
+  currentRoute: PropTypes.string.isRequired,
+};

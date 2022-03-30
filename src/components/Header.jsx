@@ -1,20 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { setSearchBarVisibility } from '../redux/actions';
+import React, { useState } from 'react';
+// import PropTypes from 'prop-types';
+import { Link, useHistory } from 'react-router-dom';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
-function Header(props) {
-  const dispatch = useDispatch();
-  const { titleToRender, searchOptionIsDisabled } = props;
-  const [searchBarIsVisible, setSearchBarIsVisible] = useState(false);
+const TITLE_BY_ROUTE = {
+  '/foods': 'Foods',
+  '/drinks': 'Drinks',
+  '/explore': 'Explore',
+  '/explore/foods': 'Explore Foods',
+  '/explore/drinks': 'Explore Drinks',
+  '/explore/foods/ingredients': 'Explore Ingredients',
+  '/explore/drinks/ingredients': 'Explore Ingredients',
+  '/explore/foods/nationalities': 'Explore Nationatilies',
+  '/profile': 'Profile',
+  '/done-recipes': 'Done Recipies',
+  '/favorite-recipes': 'Favorite Recipes',
+};
 
-  useEffect(() => {
-    dispatch(setSearchBarVisibility(searchBarIsVisible));
-  }, [dispatch, searchBarIsVisible]);
+function Header() {
+  const history = useHistory();
+  const { pathname } = history.location;
+
+  const title = TITLE_BY_ROUTE[pathname];
+  const showSearchOption = pathname === '/foods' || pathname === '/drinks';
+
+  const [searchBarIsVisible, setSearchBarIsVisible] = useState(false);
 
   const handleSearchBarVisibility = (isVisible) => {
     setSearchBarIsVisible(!isVisible);
@@ -31,35 +43,22 @@ function Header(props) {
           />
         </Link>
         <p data-testid="page-title">
-          { titleToRender }
+          { title }
         </p>
-        {!searchOptionIsDisabled && (
-          <div
-            role="button"
+        {showSearchOption && (
+          // refatorar depois reutilizando o componente Input.jsx
+          <input
+            type="image"
+            src={ searchIcon }
+            alt="search-icon"
             data-testid="search-top-btn"
-            tabIndex={ 0 }
             onClick={ () => handleSearchBarVisibility(searchBarIsVisible) }
-            onKeyPress={ () => handleSearchBarVisibility(searchBarIsVisible) }
-          >
-            <img
-              src={ searchIcon }
-              alt="search-icon"
-            />
-          </div>
+          />
         )}
       </header>
-      {searchBarIsVisible && <SearchBar />}
+      {searchBarIsVisible && <SearchBar currentRoute={ title } />}
     </section>
   );
 }
 
 export default Header;
-
-Header.propTypes = {
-  titleToRender: PropTypes.string.isRequired,
-  searchOptionIsDisabled: PropTypes.bool,
-};
-
-Header.defaultProps = {
-  searchOptionIsDisabled: true,
-};

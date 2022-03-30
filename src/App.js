@@ -8,11 +8,13 @@ import Explore from './pages/Explore';
 import DoneRecipes from './pages/DoneRecipes';
 import Profile from './pages/Profile';
 import FavoriteRecipes from './pages/FavoriteRecipes';
+import RecipeDetails from './pages/RecipeDetails';
 
 function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
+      <Route path="/foods/:id" component={ RecipeDetails } />
       <Route path="/foods" component={ Foods } />
       <Route path="/drinks" component={ Drinks } />
       <Route path="/explore" component={ Explore } />
