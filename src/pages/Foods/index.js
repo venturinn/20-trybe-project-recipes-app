@@ -1,11 +1,17 @@
 import React from 'react';
 import BottomNav from '../../components/BottomNav';
+import Header from '../../components/Header';
+import './foods.css';
+import RecipesList from '../../components/RecipesList';
 
-export default function Foods() {
+function Foods() {
   return (
-    <div>
+    <section>
+      <Header />
+      <RecipesList />
       <BottomNav />
-    </div>
-
+    </section>
   );
 }
+
+export default Foods;

@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Input(props) {
-  const { label, id, name, testId, value, onChange, onClick, src, type } = props;
+  const { label, id, name, testId, value, type, onChange, onClick, src } = props;
+
   return (
     <label htmlFor={ id }>
       {label}
@@ -24,24 +25,24 @@ Input.propTypes = {
   label: PropTypes.string,
   testId: PropTypes.string,
   id: PropTypes.string,
-  type: PropTypes.string,
   name: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func,
   onClick: PropTypes.func,
+  type: PropTypes.string,
   src: PropTypes.string,
 };
 
 Input.defaultProps = {
   label: null,
   testId: null,
+  type: 'text',
   id: null,
   name: null,
   onChange: null,
   onClick: null,
   src: null,
-  value: null,
-  type: null,
+  value: '',
 };
 
 export default Input;

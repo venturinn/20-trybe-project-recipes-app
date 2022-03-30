@@ -1,10 +1,12 @@
 import React from 'react';
 import BottomNav from '../../components/BottomNav';
+import Header from '../../components/Header';
 
-export default function index() {
+export default function Explore() {
   return (
-    <div>
+    <section>
+      <Header />
       <BottomNav />
-    </div>
+    </section>
   );
 }
