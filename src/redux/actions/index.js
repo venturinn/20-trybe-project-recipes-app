@@ -8,7 +8,7 @@ import {
 } from '../../services';
 
 const ALERT_MESSAGE = 'Your search must have only 1 (one) character';
-const NO_RECIPES_FOUND = 'Sorry, we haven\'t found any recipes for these filters';
+const NO_RECIPES_FOUND = 'Sorry, we haven\'t found any recipes for these filters.';
 
 // actions search bar
 export const SEARCH_BAR_RESULTS_TO_SHOW = 'SEARCH_BAR_RESULTS_TO_SHOW';
@@ -38,15 +38,16 @@ export const requestSearchBarRecipes = (search, currRoute) => async (dispatch) =
   const { value, type } = search;
   if (type === 'firstLetter' && value.length > 1) return global.alert(ALERT_MESSAGE);
 
-  if (currRoute === 'Foods') {
+  if (currRoute === '/foods') {
     const recipesList = await getRecipesFromFoodAPIBySearchBar(search);
-    console.log();
-    if (recipesList.meals === null) return global.alert(NO_RECIPES_FOUND);
+    const { meals } = recipesList;
+    if (meals === null || meals === undefined) return global.alert(NO_RECIPES_FOUND);
     dispatch(setSearchBarResults(recipesList));
   }
-  if (currRoute === 'Drinks') {
+  if (currRoute === '/drinks') {
     const recipesList = await getRecipesFromDrinkAPIBySearchBar(search);
-    if (recipesList.drinks === null) return global.alert(NO_RECIPES_FOUND);
+    const { drinks } = recipesList;
+    if (drinks === null || drinks === undefined) return global.alert(NO_RECIPES_FOUND);
     dispatch(setSearchBarResults(recipesList));
   }
 };

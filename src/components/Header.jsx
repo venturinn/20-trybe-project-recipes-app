@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import Input from './Input';
 
 const TITLE_BY_ROUTE = {
   '/foods': 'Foods',
@@ -13,18 +15,21 @@ const TITLE_BY_ROUTE = {
   '/explore/drinks': 'Explore Drinks',
   '/explore/foods/ingredients': 'Explore Ingredients',
   '/explore/drinks/ingredients': 'Explore Ingredients',
-  '/explore/foods/nationalities': 'Explore Nationatilies',
+  '/explore/foods/nationalities': 'Explore Nationalities',
   '/profile': 'Profile',
-  '/done-recipes': 'Done Recipies',
+  '/done-recipes': 'Done Recipes',
   '/favorite-recipes': 'Favorite Recipes',
 };
 
 function Header() {
   const history = useHistory();
-  const { pathname } = history.location;
+  const location = useLocation();
+  const { pathname } = location;
+  console.log(pathname);
 
   const title = TITLE_BY_ROUTE[pathname];
-  const showSearchOption = pathname === '/foods' || pathname === '/drinks';
+  const showSearchOption = (pathname === '/foods'
+  || pathname === '/drinks' || pathname === '/explore/foods/nationalities');
 
   const [searchBarIsVisible, setSearchBarIsVisible] = useState(false);
 
@@ -35,28 +40,27 @@ function Header() {
   return (
     <section>
       <header className="main-header">
-        <Link to="/profile">
-          <img
-            src={ profileIcon }
-            alt="profile-icon"
-            data-testid="profile-top-btn"
-          />
-        </Link>
+        <Input
+          src={ profileIcon }
+          alt="profile-icon"
+          testId="profile-top-btn"
+          type="image"
+          onClick={ () => history.push('/profile') }
+        />
         <p data-testid="page-title">
           { title }
         </p>
         {showSearchOption && (
-          // refatorar depois reutilizando o componente Input.jsx
-          <input
+          <Input
             type="image"
             src={ searchIcon }
             alt="search-icon"
-            data-testid="search-top-btn"
+            testId="search-top-btn"
             onClick={ () => handleSearchBarVisibility(searchBarIsVisible) }
           />
         )}
       </header>
-      {searchBarIsVisible && <SearchBar currentRoute={ title } />}
+      {searchBarIsVisible && <SearchBar currentRoute={ pathname } />}
     </section>
   );
 }

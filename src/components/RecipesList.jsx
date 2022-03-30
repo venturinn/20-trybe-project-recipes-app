@@ -16,7 +16,10 @@ function RecipesList() {
           <CardFood recipesList={ recipesList.meals } />
         ) : (
           // procurar um tratamento mais especifico pra esse caso na refatoração
-          <CardDrink recipesList={ recipesList.drinks } />
+          <div>
+            {recipesList.drinks
+             && <CardDrink recipesList={ recipesList.drinks } />}
+          </div>
         )}
       </section>
     )
