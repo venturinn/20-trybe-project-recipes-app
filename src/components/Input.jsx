@@ -13,7 +13,6 @@ function Input(props) {
         value={ value }
         data-testid={ testId }
         onChange={ onChange }
-        type={ type }
       />
     </label>
   );
@@ -22,7 +21,6 @@ function Input(props) {
 Input.propTypes = {
   label: PropTypes.string,
   testId: PropTypes.string,
-  type: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
