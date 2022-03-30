@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom';
 function CardDrink({ recipesList }) {
   // console.log('recipes em cardDrink', recipesList);
 
+  const cardLimit = 11;
+  const listToRender = recipesList.filter((item, index) => index <= cardLimit);
   return (
     <div>
-      {recipesList && recipesList.map((recipe, idx) => (
+      {recipesList && listToRender.map((recipe, idx) => (
         <div key={ recipe.idDrink } data-testid={ `${idx}-recipe-card` }>
           <Link to={ `/foods/${recipe.idDrink}` }>
             <h4 data-testid={ `${idx}-card-name` }>{ recipe.strDrink }</h4>
