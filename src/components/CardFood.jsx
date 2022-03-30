@@ -1,12 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 
 function CardFood({ recipesList }) {
-  // console.log('recipesList em cardFood', recipesList);
-
   const cardLimit = 11;
   const listToRender = recipesList.filter((item, index) => index <= cardLimit);
+
+  if (listToRender.length === 1) {
+    return (<Redirect push to={ `/foods/${listToRender[0].idMeal}` } />);
+  }
+
   return (
     <div>
       {recipesList && listToRender.map((recipe, idx) => (
