@@ -6,6 +6,7 @@ import Header from '../../components/Header';
 import './foods.css';
 import RecipesList from '../../components/RecipesList';
 import { setMainPageRecipes, cleanUpMainPage } from '../../redux/actions/mainPage';
+import Filters from '../../components/Filters';
 
 function Foods() {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function Foods() {
   return (
     <section>
       <Header />
+      <Filters />
       <RecipesList />
       <BottomNav />
     </section>
