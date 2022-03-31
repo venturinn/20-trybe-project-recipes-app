@@ -9,12 +9,16 @@ import DoneRecipes from './pages/DoneRecipes';
 import Profile from './pages/Profile';
 import FavoriteRecipes from './pages/FavoriteRecipes';
 import RecipeDetails from './pages/RecipeDetails';
+import RecipeProgress from './pages/RecipeProgress';
 
 function App() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
-      <Route path="/foods/:id" component={ RecipeDetails } />
+      <Route exact path="/foods/:id" component={ RecipeDetails } />
+      <Route exact path="/drinks/:id" component={ RecipeDetails } />
+      <Route path="/foods/:id/in-progress" component={ RecipeProgress } />
+      <Route path="/drinks/:id/in-progress" component={ RecipeProgress } />
       <Route exact path="/foods" component={ Foods } />
       <Route exact path="/drinks" component={ Drinks } />
       <Route path="/explore" component={ Explore } />
