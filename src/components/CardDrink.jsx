@@ -17,7 +17,7 @@ function CardDrink({ recipesList }) {
     <div>
       {recipesList && listToRender.map((recipe, idx) => (
         <div key={ recipe.idDrink } data-testid={ `${idx}-recipe-card` }>
-          <Link to={ `/foods/${recipe.idDrink}` }>
+          <Link to={ `/drinks/${recipe.idDrink}` }>
             <h4 data-testid={ `${idx}-card-name` }>{ recipe.strDrink }</h4>
             <img
               src={ recipe.strDrinkThumb }
