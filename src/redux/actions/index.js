@@ -10,7 +10,7 @@ const NO_RECIPES_FOUND = 'Sorry, we haven\'t found any recipes for these filters
 // actions search bar
 export const SEARCH_BAR_RESULTS_TO_SHOW = 'SEARCH_BAR_RESULTS_TO_SHOW';
 
-const setSearchBarResults = (payload) => ({
+export const setSearchBarResults = (payload) => ({
   type: SEARCH_BAR_RESULTS_TO_SHOW, payload,
 });
 

@@ -9,6 +9,7 @@ export default function Explore() {
       <Header />
       <ExploreHome />
       <BottomNav />
+      <ExploreHome />
     </section>
   );
 }
