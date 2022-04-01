@@ -6,19 +6,18 @@ function CardPairing({ pairingList, type }) {
   if (type === 'drinks') {
     const listToRender = pairingList.meals.filter((_item, index) => index <= cardLimit);
     return (
-      <div>
+      <div className="pairing-container">
         {listToRender.map((element, index) => (
-          <div key={ index }>
+          <div data-testid={ `${index}-recomendation-card` } key={ index }>
             <img
               src={ element.strMealThumb }
               alt={ element.strMeal }
-              data-testid={ `${index}-recomendation-card` }
               // inline apenas para melhor visualização
-              width="200px"
-              height="200px"
+              width="185px"
+              height="160px"
             />
+            <p data-testid={ `${index}-recomendation-title` }>{element.strMeal}</p>
             <p>{element.strCategory}</p>
-            <p>{element.strMeal}</p>
           </div>
         ))}
       </div>
@@ -26,18 +25,17 @@ function CardPairing({ pairingList, type }) {
   }
   const listToRender = pairingList.drinks.filter((_item, index) => index <= cardLimit);
   return (
-    <div>
+    <div className="pairing-container">
       {listToRender.map((element, index) => (
-        <div key={ index }>
+        <div data-testid={ `${index}-recomendation-card` } key={ index }>
           <img
             src={ element.strDrinkThumb }
             alt={ element.strDrink }
-            data-testid={ `${index}-recomendation-card` }
             // inline apenas para melhor visualização
-            width="200px"
-            height="200px"
+            width="185px"
+            height="160px"
           />
-          <p>{element.strCategory}</p>
+          <p data-testid={ `${index}-recomendation-title` }>{element.strDrink}</p>
           <p>{element.strAlcoholic}</p>
         </div>
       ))}
