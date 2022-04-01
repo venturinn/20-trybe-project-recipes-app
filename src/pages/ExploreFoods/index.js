@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import BottomNav from '../../components/BottomNav';
 import { getRandomRecipe } from '../../services';
+import Header from '../../components/Header';
 
 export default function ExploreFoods() {
   const history = useHistory();
@@ -24,6 +25,7 @@ export default function ExploreFoods() {
 
   return (
     <section>
+      <Header />
       <button
         type="button"
         data-testid="explore-by-ingredient"

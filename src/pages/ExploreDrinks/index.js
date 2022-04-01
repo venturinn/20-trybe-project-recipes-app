@@ -2,6 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import BottomNav from '../../components/BottomNav';
 import { getRandomRecipe } from '../../services';
+import Header from '../../components/Header';
 
 export default function ExploreDrinks() {
   const history = useHistory();
@@ -17,6 +18,7 @@ export default function ExploreDrinks() {
 
   return (
     <section>
+      <Header />
       <button
         type="button"
         data-testid="explore-by-ingredient"
