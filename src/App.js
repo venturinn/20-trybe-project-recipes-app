@@ -19,7 +19,7 @@ function App() {
       <Route path="/foods/:id" component={ RecipeDetails } />
       <Route exact path="/foods" component={ Foods } />
       <Route exact path="/drinks" component={ Drinks } />
-      <Route path="/explore" component={ Explore } />
+      <Route exact path="/explore" component={ Explore } />
       <Route path="/done-recipes" component={ DoneRecipes } />
       <Route exact path="/profile" component={ Profile } />
       <Route path="/favorite-recipes" component={ FavoriteRecipes } />
