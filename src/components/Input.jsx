@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Input(props) {
-  const { label, id, name, testId, value, checked, type, onChange, onClick, src } = props;
+  const { label, id, name, testId, value, type, onChange, onClick, src } = props;
 
   return (
     <label htmlFor={ id }>
@@ -12,7 +12,6 @@ function Input(props) {
         type={ type }
         name={ name }
         value={ value || '' }
-        checked={ checked || false }
         data-testid={ testId }
         onChange={ onChange }
         onClick={ onClick }
@@ -32,7 +31,6 @@ Input.propTypes = {
   onClick: PropTypes.func,
   type: PropTypes.string,
   src: PropTypes.string,
-  checked: PropTypes.bool,
 };
 
 Input.defaultProps = {
@@ -45,7 +43,6 @@ Input.defaultProps = {
   onClick: null,
   src: null,
   value: '',
-  checked: false,
 };
 
 export default Input;

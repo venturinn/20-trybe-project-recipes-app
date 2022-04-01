@@ -12,10 +12,16 @@ export default function RecipeProgress() {
   const { pathname } = location;
   const papathnameSplited = pathname.split('/');
   const currRoute = papathnameSplited[papathnameSplited.length - THREE];
+  const progressKey = currRoute === 'foods' ? 'meals' : 'cocktails';
 
+  // const [recipesInProgress, setRecipesInProgress] = useState({});
   const [checkboxesStatus, setCheckboxesStatus] = useState({});
   const [recipe, setRecipe] = useState({});
   const recipeDetails = useSelector((state) => state.searchResults.recipeDetails);
+
+  const recipeName = recipe.strMeal || recipe.strDrink;
+  const recipeThumb = recipe.strMealThumb || recipe.strDrinkThumb;
+  const recipeId = recipe.idMeal || recipe.idDrink;
 
   useEffect(() => {
     setRecipe(recipeDetails);
@@ -24,6 +30,7 @@ export default function RecipeProgress() {
 
   useEffect(() => {
     if (Object.keys(recipe).length > 0) {
+      console.log('não tem no localStorage');
       let checkboxes = {};
       recipe.ingredientsAndMeasures.forEach((item) => {
         checkboxes = { ...checkboxes, [item.ingredient]: false };
@@ -32,13 +39,45 @@ export default function RecipeProgress() {
     }
   }, [recipe]);
 
+  // useEffect(() => {
+  //   if (localStorage.getItem('inProgressRecipes')) {
+  //     setRecipesInProgress(JSON.parse(localStorage.getItem('inProgressRecipes')));
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem('inProgressRecipes')) {
+      const fromLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+      if (fromLocalStorage[progressKey] && fromLocalStorage[progressKey][id]) {
+        setCheckboxesStatus(fromLocalStorage[progressKey][id]);
+      }
+    }
+  }, [recipe]);
+
   const handleCheckboxOnChange = ({ name, checked }) => {
     const newCheckboxesStatus = { ...checkboxesStatus, [name]: checked };
     setCheckboxesStatus(newCheckboxesStatus);
   };
 
-  const recipeName = recipe.strMeal || recipe.strDrink;
-  const recipeThumb = recipe.strMealThumb || recipe.strDrinkThumb;
+  useEffect(() => {
+    if (!recipeId) return;
+    const recipeProgress = { [recipeId]: checkboxesStatus };
+    const fromLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    if (fromLocalStorage === null) {
+      const newLocalStorage = { [progressKey]: { ...recipeProgress } };
+      console.log(fromLocalStorage);
+      console.log('sem others', newLocalStorage);
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newLocalStorage));
+    } else {
+      const newLocalStorage = {
+        ...fromLocalStorage,
+        [progressKey]: { ...fromLocalStorage[progressKey], ...recipeProgress },
+      };
+      console.log('com others', newLocalStorage);
+      localStorage.setItem('inProgressRecipes', JSON.stringify(newLocalStorage));
+    }
+  }, [checkboxesStatus]);
+
   return (
     <section>
       <img
@@ -67,7 +106,14 @@ export default function RecipeProgress() {
       ))}
       <h5 data-testid="instructions">Instructions</h5>
       {recipe.strInstructions}
-      <button data-testid="finish-recipe-btn" type="button">finish</button>
+      <button
+        data-testid="finish-recipe-btn"
+        type="button"
+        disabled={ !Object.values(checkboxesStatus).every((status) => status === true) }
+        // onClick={}
+      >
+        Finish Recipe
+      </button>
     </section>
   );
 }
