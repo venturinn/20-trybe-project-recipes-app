@@ -1,12 +1,7 @@
-const requestAPI = async (url) => {
-  try {
-    const results = await fetch(url);
-    const data = await results.json();
-    return data;
-  } catch (error) {
-    return error;
-  }
-};
+import getRecipesForMainPage from './mainPage';
+import getRecipesByCategory from './filters';
+import getCategories from './category';
+import requestAPI from './requestAPI';
 
 export const getRecipesByIngredient = (ingredient, currRoute) => {
   if (currRoute === '/foods') {
@@ -31,3 +26,5 @@ export const getRecipesByFirstLetter = (firstLetter, currRoute) => {
     return requestAPI(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`);
   }
 };
+
+export { getRecipesForMainPage, getCategories, getRecipesByCategory };

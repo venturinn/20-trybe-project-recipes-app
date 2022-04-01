@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 function CardDrink({ recipesList }) {
   // console.log('recipes em cardDrink', recipesList);
@@ -9,7 +9,9 @@ function CardDrink({ recipesList }) {
   const cardLimit = 11;
   const listToRender = recipesList.filter((_item, index) => index <= cardLimit);
 
-  if (listToRender.length === 1) {
+  const filter = useSelector((state) => state.filter);
+  const shouldRedirect = filter === '';
+  if (listToRender.length === 1 && shouldRedirect) {
     return (<Redirect push to={ `/drinks/${listToRender[0].idDrink}` } />);
   }
 
@@ -17,7 +19,7 @@ function CardDrink({ recipesList }) {
     <div>
       {recipesList && listToRender.map((recipe, idx) => (
         <div key={ recipe.idDrink } data-testid={ `${idx}-recipe-card` }>
-          <Link to={ `/foods/${recipe.idDrink}` }>
+          <Link to={ `/drinks/${recipe.idDrink}` }>
             <h4 data-testid={ `${idx}-card-name` }>{ recipe.strDrink }</h4>
             <img
               src={ recipe.strDrinkThumb }
