@@ -7,8 +7,8 @@ export default function Explore() {
   return (
     <section>
       <Header />
-      <BottomNav />
       <ExploreHome />
+      <BottomNav />
     </section>
   );
 }

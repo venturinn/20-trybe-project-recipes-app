@@ -5,11 +5,11 @@ export default function ExploreHome() {
   const history = useHistory();
 
   const goToExploreFoods = () => {
-    history.push('./explore/foods');
+    history.push('/explore/foods');
   };
 
   const goToExploreDrinks = () => {
-    history.push('./explore/drinks');
+    history.push('/explore/drinks');
   };
 
   return (
