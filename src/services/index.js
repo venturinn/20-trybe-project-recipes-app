@@ -1,4 +1,5 @@
 import getRecipesForMainPage from './mainPage';
+import getRecipesByCategory from './filters';
 import getCategories from './category';
 import requestAPI from './requestAPI';
 
@@ -26,4 +27,4 @@ export const getRecipesByFirstLetter = (firstLetter, currRoute) => {
   }
 };
 
-export { getRecipesForMainPage, getCategories };
+export { getRecipesForMainPage, getCategories, getRecipesByCategory };
