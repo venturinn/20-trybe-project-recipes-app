@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from './Button';
 import { getFiveCategories } from '../redux/actions/category';
 import { setFilterName, setRecipesByCategory } from '../redux/actions/filters';
+import { setMainPageRecipes } from '../redux/actions/mainPage';
 
 export default function Filters() {
   const location = useLocation();
@@ -11,13 +12,25 @@ export default function Filters() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getFiveCategories(pathname));
-  }, []);
+  }, [dispatch, pathname]);
 
   const categoryList = useSelector((state) => state.category.categories);
+  const filter = useSelector((state) => state.filter);
 
+  // onClick func
   const handleFilter = (currRoute, category) => {
-    dispatch(setFilterName(category));
-    dispatch(setRecipesByCategory(currRoute, category));
+    if (filter === category) {
+      dispatch(setFilterName(''));
+      dispatch(setMainPageRecipes(currRoute));
+    } else {
+      dispatch(setFilterName(category));
+      dispatch(setRecipesByCategory(currRoute, category));
+    }
+  };
+
+  const handleAllButton = (currRoute) => {
+    dispatch(setFilterName(''));
+    dispatch(setMainPageRecipes(currRoute));
   };
 
   return (
@@ -28,7 +41,7 @@ export default function Filters() {
             <Button
               label="All"
               testId="All-category-filter"
-              onClick={ () => handleFilter(pathname, 'all') }
+              onClick={ () => handleAllButton(pathname) }
             />
             {categoryList.map((item) => (
               <Button

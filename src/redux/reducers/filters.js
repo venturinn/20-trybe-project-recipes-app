@@ -2,9 +2,7 @@ import {
   SET_FILTER,
 } from '../actions/filters';
 
-const INITIAL_STATE = {
-  filter: [],
-};
+const INITIAL_STATE = '';
 
 const filterReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
