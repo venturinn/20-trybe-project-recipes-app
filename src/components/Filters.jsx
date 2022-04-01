@@ -18,7 +18,6 @@ export default function Filters() {
   const handleFilter = (currRoute, category) => {
     dispatch(setFilterName(category));
     dispatch(setRecipesByCategory(currRoute, category));
-    console.log(currRoute, category);
   };
 
   return (
