@@ -27,7 +27,6 @@ export const getRecipesByFirstLetter = (firstLetter, currRoute) => {
   }
 };
 
-
 export const getRandomRecipe = (currRoute) => {
   if (currRoute === '/explore/foods') {
     return requestAPI('https://www.themealdb.com/api/json/v1/1/random.php');

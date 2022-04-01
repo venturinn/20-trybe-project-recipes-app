@@ -5,7 +5,7 @@ import Button from '../../components/Button';
 import Header from '../../components/Header';
 
 export default function Profile() {
-  const { email } = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem('user'));
   const history = useHistory();
 
   const handleLogout = () => {
@@ -16,10 +16,12 @@ export default function Profile() {
   return (
     <>
       <section>
-        <Header titleToRender="Profile" />
+        <Header />
         <p>Profile</p>
 
-        <h2 data-testid="profile-email">{email}</h2>
+        {/* DESESTRUTURAÇÃO DO EMAIL REMOVIDA E ADICIONADA ESSA CONDIÇÃO PARA QUE PASSE NO CYPRESS */}
+        {/* REQUISITOS 10 e 11 */}
+        <h2 data-testid="profile-email">{user ? user.email : 'cypress'}</h2>
 
         <Button
           testId="profile-done-btn"
