@@ -6,16 +6,19 @@ import { getRecipesDetailsThunk } from '../../redux/actions';
 import Button from '../../components/Button';
 import { getFoodAndDrinkPairingById } from '../../services';
 import CardPairing from '../../components/CardPairing';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import shareIcon from '../../images/shareIcon.svg';
+import Input from '../../components/Input';
 
 export default function RecipeDetails() {
   const [foodAndDrinkPairing, setFoodAndDrinkPairing] = useState(false);
-  // const [typeOfRecipes, setTypeOfRecipes] = useState('Drinks');
+  const [heartFavorite, setheartFavorite] = useState(whiteHeartIcon);
+  const [favoriteRecipesList, setFavoriteRecipesList] = useState(null);
   const { id } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
   const details = useSelector((state) => state.searchResults.recipeDetails);
-
-  console.log('paring', foodAndDrinkPairing);
 
   // Solução adotada para capturar parte da URL (foods ou drinks):
   const location = useLocation();
@@ -23,6 +26,7 @@ export default function RecipeDetails() {
   const papathnameSplited = pathname.split('/');
   const currRoute = papathnameSplited[papathnameSplited.length - 2];
 
+  // API Details
   useEffect(() => {
     const getDetails = () => {
       const recipeDetailsResults = dispatch(getRecipesDetailsThunk(id, `/${currRoute}`));
@@ -31,6 +35,7 @@ export default function RecipeDetails() {
     getDetails();
   }, [id, currRoute, dispatch]);
 
+  // API Pairing
   useEffect(() => {
     const getFoodAndDrinkPairing = async () => {
       const foodDrinkPairing = await getFoodAndDrinkPairingById(id, `/${currRoute}`);
@@ -39,8 +44,93 @@ export default function RecipeDetails() {
     getFoodAndDrinkPairing();
   }, [id, currRoute]);
 
+  // REF.: https://stackoverflow.com/questions/49618618/copy-current-url-to-clipboard
+  // Verificar melhor solução.
+  const buttonShareClick = () => {
+    const el = document.createElement('input');
+    el.value = window.location.href;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    return global.alert('Link copied!');
+  };
+
+  // Verifica a chave 'favoriteRecipes' no localStorage
+  useEffect(() => {
+    const favoriteRecipesListStore = JSON.parse(localStorage.getItem('favoriteRecipes'));
+    if (favoriteRecipesListStore !== null) {
+      favoriteRecipesListStore.forEach((recipe) => {
+        if (recipe.id === id) {
+          setheartFavorite(blackHeartIcon);
+        }
+      });
+    }
+    setFavoriteRecipesList(favoriteRecipesListStore);
+  }, []);
+
+  const mountNewFavoriteRecipe = () => {
+    if (currRoute === 'foods') {
+      return {
+        id: details.idMeal,
+        type: 'food',
+        nationality: details.strArea,
+        category: details.strCategory,
+        alcoholicOrNot: '',
+        name: details.strMeal,
+        image: details.strMealThumb,
+      };
+    }
+    return {
+      id: details.idDrink,
+      type: 'drink',
+      nationality: '',
+      category: details.strCategory,
+      alcoholicOrNot: details.strAlcoholic,
+      name: details.strDrink,
+      image: details.strDrinkThumb,
+    };
+  };
+
+  const hearFavoriteClick = () => {
+    const newFavoriteRecipe = mountNewFavoriteRecipe();
+
+    if (heartFavorite === whiteHeartIcon) {
+      setheartFavorite(blackHeartIcon);
+      if (favoriteRecipesList === null || favoriteRecipesList.length === 0) {
+        localStorage.setItem('favoriteRecipes', JSON.stringify([newFavoriteRecipe]));
+        setFavoriteRecipesList([newFavoriteRecipe]);
+      } else {
+        localStorage.setItem('favoriteRecipes',
+          JSON.stringify([...favoriteRecipesList, newFavoriteRecipe]));
+        setFavoriteRecipesList([...favoriteRecipesList, newFavoriteRecipe]);
+      }
+    } else {
+      setheartFavorite(whiteHeartIcon);
+      const newFavorite = favoriteRecipesList.filter((recipe) => recipe.id !== id);
+      localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorite));
+      setFavoriteRecipesList(newFavorite);
+    }
+
+    console.log('store', favoriteRecipesList);
+  };
+
   return (
     <div>
+      <Input
+        type="image"
+        src={ heartFavorite }
+        alt="whiteHeartIcon-icon"
+        testId="Favorite Recipe"
+        onClick={ () => hearFavoriteClick() }
+      />
+      <Input
+        type="image"
+        src={ shareIcon }
+        alt="whiteHeartIcon-icon"
+        testId="share-btn"
+        onClick={ () => buttonShareClick() }
+      />
       {details.length !== 0 && (
         <div>
           { currRoute === 'drinks' && (
@@ -102,14 +192,6 @@ export default function RecipeDetails() {
           <br />
           {foodAndDrinkPairing
           && <CardPairing type={ currRoute } pairingList={ foodAndDrinkPairing } />}
-          <Button
-            testId="share-btn"
-            label="Share Recipe"
-          />
-          <Button
-            testId="favorite-btn"
-            label="Favorite Recipe"
-          />
           <Button
             testId="start-recipe-btn"
             label="Start Recipe"
