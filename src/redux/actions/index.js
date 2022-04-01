@@ -51,7 +51,6 @@ const setTreatedRecipeDetailsList = (payload) => ({
 });
 
 export const getRecipesDetailsThunk = (id, currRoute) => async (dispatch) => {
-  console.log('em:', 'getRecipesDetailsThunk');
   const recipeDetails = await getRecipeDetailsById(id, currRoute);
   if (currRoute === '/foods') {
     const { meals } = recipeDetails;
