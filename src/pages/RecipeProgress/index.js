@@ -9,12 +9,9 @@ export default function RecipeProgress() {
   const { id } = useParams();
   const location = useLocation();
   const dispatch = useDispatch();
-  const { pathname } = location;
-  const papathnameSplited = pathname.split('/');
-  const currRoute = papathnameSplited[papathnameSplited.length - THREE];
-  const progressKey = currRoute === 'foods' ? 'meals' : 'cocktails';
 
-  // const [recipesInProgress, setRecipesInProgress] = useState({});
+  const [currentRoute, setCurrentRoute] = useState('');
+  const [recipesInProgress, setRecipesInProgress] = useState({});
   const [checkboxesStatus, setCheckboxesStatus] = useState({});
   const [recipe, setRecipe] = useState({});
   const recipeDetails = useSelector((state) => state.searchResults.recipeDetails);
@@ -22,14 +19,38 @@ export default function RecipeProgress() {
   const recipeName = recipe.strMeal || recipe.strDrink;
   const recipeThumb = recipe.strMealThumb || recipe.strDrinkThumb;
   const recipeId = recipe.idMeal || recipe.idDrink;
+  const progressKey = currentRoute === 'foods' ? 'meals' : 'cocktails';
+
+  useEffect(() => {
+    const { pathname } = location;
+    const papathnameSplited = pathname.split('/');
+    const currRoute = papathnameSplited[papathnameSplited.length - THREE];
+    setCurrentRoute(currRoute);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     setRecipe(recipeDetails);
-    if (recipeDetails.length < 1) dispatch(getRecipesDetailsThunk(id, `/${currRoute}`));
-  }, [currRoute, id, dispatch, recipeDetails]);
+    if (recipeDetails.length < 1) {
+      dispatch(
+        getRecipesDetailsThunk(id, `/${currentRoute}`),
+      );
+    }
+  }, [currentRoute, id, dispatch, recipeDetails]);
 
   useEffect(() => {
-    if (Object.keys(recipe).length > 0) {
+    if (localStorage.getItem('inProgressRecipes')) {
+      setRecipesInProgress(JSON.parse(localStorage.getItem('inProgressRecipes')));
+    } else {
+      setRecipesInProgress({});
+    }
+  }, []);
+
+  useEffect(() => {
+    if (recipesInProgress[progressKey] && recipesInProgress[progressKey][id]) {
+      console.log('tem no localStorage');
+      setCheckboxesStatus(recipesInProgress[progressKey][id]);
+    } else if (Object.keys(recipe).length > 0) {
       console.log('não tem no localStorage');
       let checkboxes = {};
       recipe.ingredientsAndMeasures.forEach((item) => {
@@ -37,46 +58,32 @@ export default function RecipeProgress() {
       });
       setCheckboxesStatus(checkboxes);
     }
-  }, [recipe]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [recipesInProgress, recipe]);
 
-  // useEffect(() => {
-  //   if (localStorage.getItem('inProgressRecipes')) {
-  //     setRecipesInProgress(JSON.parse(localStorage.getItem('inProgressRecipes')));
-  //   }
-  // }, []);
-
+  // ATÉ AQUI
   useEffect(() => {
-    if (localStorage.getItem('inProgressRecipes')) {
-      const fromLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-      if (fromLocalStorage[progressKey] && fromLocalStorage[progressKey][id]) {
-        setCheckboxesStatus(fromLocalStorage[progressKey][id]);
-      }
+    if (!recipeId) return;
+    const currRecipeProgress = { [recipeId]: checkboxesStatus };
+    let newLocalStorage = {};
+    if (Object.keys(recipesInProgress).length === 0) {
+      newLocalStorage = { [progressKey]: { ...currRecipeProgress } };
+      console.log('sem outras receitas em progresso', newLocalStorage);
+    } else {
+      newLocalStorage = {
+        ...recipesInProgress,
+        [progressKey]: { ...recipesInProgress[progressKey], ...currRecipeProgress },
+      };
+      console.log('com outras receitas em progresso', newLocalStorage);
     }
-  }, [recipe]);
+    localStorage.setItem('inProgressRecipes', JSON.stringify(newLocalStorage));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [checkboxesStatus]);
 
   const handleCheckboxOnChange = ({ name, checked }) => {
     const newCheckboxesStatus = { ...checkboxesStatus, [name]: checked };
     setCheckboxesStatus(newCheckboxesStatus);
   };
-
-  useEffect(() => {
-    if (!recipeId) return;
-    const recipeProgress = { [recipeId]: checkboxesStatus };
-    const fromLocalStorage = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (fromLocalStorage === null) {
-      const newLocalStorage = { [progressKey]: { ...recipeProgress } };
-      console.log(fromLocalStorage);
-      console.log('sem others', newLocalStorage);
-      localStorage.setItem('inProgressRecipes', JSON.stringify(newLocalStorage));
-    } else {
-      const newLocalStorage = {
-        ...fromLocalStorage,
-        [progressKey]: { ...fromLocalStorage[progressKey], ...recipeProgress },
-      };
-      console.log('com others', newLocalStorage);
-      localStorage.setItem('inProgressRecipes', JSON.stringify(newLocalStorage));
-    }
-  }, [checkboxesStatus]);
 
   return (
     <section>
