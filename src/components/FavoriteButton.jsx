@@ -4,7 +4,27 @@ import Input from './Input';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 
-function FavoriteButton({ isDrinkOrFood, id, details }) {
+const mountNewFavoriteRecipe = (details) => {
+  const name = details.strMeal || details.strDrink;
+  const image = details.strMealThumb || details.strDrinkThumb;
+  const id = details.idMeal || details.idDrink;
+  const type = details.idMeal ? 'food' : 'drink';
+  const nationality = details.strArea ? details.strArea : '';
+  const alcoholicOrNot = details.strAlcoholic ? details.strAlcoholic : '';
+  const category = details.strCategory;
+
+  return {
+    name,
+    image,
+    id,
+    type,
+    nationality,
+    alcoholicOrNot,
+    category,
+  };
+};
+
+function FavoriteButton({ id, details }) {
   const [heartFavorite, setheartFavorite] = useState(whiteHeartIcon);
   const [favoriteRecipesList, setFavoriteRecipesList] = useState(null);
 
@@ -12,6 +32,7 @@ function FavoriteButton({ isDrinkOrFood, id, details }) {
     const favoriteRecipesListStore = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (favoriteRecipesListStore !== null) {
       favoriteRecipesListStore.forEach((recipe) => {
+        console.log('diego', typeof recipe.id);
         if (recipe.id === id) {
           setheartFavorite(blackHeartIcon);
         }
@@ -20,31 +41,8 @@ function FavoriteButton({ isDrinkOrFood, id, details }) {
     setFavoriteRecipesList(favoriteRecipesListStore);
   }, []);
 
-  const mountNewFavoriteRecipe = () => {
-    if (isDrinkOrFood === 'foods') {
-      return {
-        id: details.idMeal,
-        type: 'food',
-        nationality: details.strArea,
-        category: details.strCategory,
-        alcoholicOrNot: '',
-        name: details.strMeal,
-        image: details.strMealThumb,
-      };
-    }
-    return {
-      id: details.idDrink,
-      type: 'drink',
-      nationality: '',
-      category: details.strCategory,
-      alcoholicOrNot: details.strAlcoholic,
-      name: details.strDrink,
-      image: details.strDrinkThumb,
-    };
-  };
-
   const hearFavoriteClick = () => {
-    const newFavoriteRecipe = mountNewFavoriteRecipe();
+    const newFavoriteRecipe = mountNewFavoriteRecipe(details);
 
     if (heartFavorite === whiteHeartIcon) {
       setheartFavorite(blackHeartIcon);
@@ -78,7 +76,6 @@ function FavoriteButton({ isDrinkOrFood, id, details }) {
 export default FavoriteButton;
 
 FavoriteButton.propTypes = {
-  isDrinkOrFood: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   details: PropTypes.oneOfType([
     PropTypes.string,

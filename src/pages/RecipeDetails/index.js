@@ -76,83 +76,75 @@ export default function RecipeDetails() {
     getDetails();
   }, []);
 
+  const verifyFoodOrDrinkInfo = (allDetails) => {
+    const title = allDetails.strMeal || allDetails.strDrink;
+    const illustration = allDetails.strMealThumb || allDetails.strDrinkThumb;
+    const category = allDetails.strAlcoholic
+      ? allDetails.strAlcoholic
+      : allDetails.strCategory;
+
+    return {
+      title,
+      illustration,
+      category,
+    };
+  };
+
+  const detailsInfo = verifyFoodOrDrinkInfo(details);
+
   return (
     <div>
-      {isLinkCopied && <p>Link copied!</p>}
-      <ShareButton setIsLinkCopied={ setIsLinkCopied } />
-      <FavoriteButton id={ id } isDrinkOrFood={ currRoute } details={ details } />
       {details.length !== 0 && (
         <div>
-          { currRoute === 'drinks' && (
-            <div>
+          <p data-testid="recipe-title">{detailsInfo.title}</p>
+          <p data-testid="recipe-category">{detailsInfo.category}</p>
+          <img
+            data-testid="recipe-photo"
+            alt="Recipe illustration"
+            src={ detailsInfo.illustration }
+            // inline apenas para melhor visualização
+            width="200px"
+            height="200px"
+          />
+
+          <FavoriteButton id={ id } isDrinkOrFood={ currRoute } details={ details } />
+          <ShareButton setIsLinkCopied={ setIsLinkCopied } />
+          {isLinkCopied && <p>Link copied!</p>}
+
+          <p data-testid="instructions">{details.strInstructions}</p>
+          {details.ingredientsAndMeasures.map(
+            ({ ingredient, measure }, index) => (
               <p
-                data-testid="recipe-title"
+                key={ index }
+                data-testid={ `${index}-ingredient-name-and-measure` }
               >
-                { details.strDrink }
+                {`${ingredient} - ${measure}`}
               </p>
-              <img
-                data-testid="recipe-photo"
-                alt="Recipe illustration"
-                src={ details.strDrinkThumb }
-                // inline apenas para melhor visualização
-                width="200px"
-                height="200px"
-              />
-              <p
-                data-testid="recipe-category"
-              >
-                {details.strAlcoholic}
-              </p>
-            </div>
+            ),
           )}
-          { currRoute === 'foods' && (
+
+          {currRoute === 'foods' && (
             <div>
-              <p
-                data-testid="recipe-title"
-              >
-                { details.strMeal }
-              </p>
-              <img
-                data-testid="recipe-photo"
-                alt="Recipe illustration"
-                src={ details.strMealThumb }
-                // inline apenas para melhor visualização
-                width="200px"
-                height="200px"
-              />
               <video data-testid="video" width="200" height="150">
                 <source src={ details.strYoutube } />
                 <track kind="captions" srcLang="en" label="english_captions" />
               </video>
-              <p
-                data-testid="recipe-category"
-              >
-                {details.strCategory}
-              </p>
             </div>
           )}
-          <p
-            data-testid="instructions"
-          >
-            {details.strInstructions}
-          </p>
-          {details.ingredientsAndMeasures.map(({ ingredient, measure }, index) => (
-            <p
-              key={ index }
-              data-testid={ `${index}-ingredient-name-and-measure` }
-            >
-              {`${ingredient} - ${measure}`}
-            </p>
-          )) }
           <br />
-          {foodAndDrinkPairing
-          && <CardPairing type={ currRoute } pairingList={ foodAndDrinkPairing } />}
-          {isRecipeDone && <Button
-            testId="start-recipe-btn"
-            label={ startButtonLabel }
-            className="start-recipe-btn"
-            onClick={ () => history.push(`/${currRoute}/${id}/in-progress`) }
-          />}
+
+          {foodAndDrinkPairing && (
+            <CardPairing type={ currRoute } pairingList={ foodAndDrinkPairing } />
+          )}
+
+          {isRecipeDone && (
+            <Button
+              testId="start-recipe-btn"
+              label={ startButtonLabel }
+              className="start-recipe-btn"
+              onClick={ () => history.push(`/${currRoute}/${id}/in-progress`) }
+            />
+          )}
         </div>
       )}
     </div>
