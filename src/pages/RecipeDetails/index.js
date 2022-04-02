@@ -38,23 +38,14 @@ export default function RecipeDetails() {
 
   const verifyRecipeInProgress = () => {
     const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const progressKey = currRoute === 'foods' ? 'meals' : 'cocktails';
     if (recipesInProgress !== null) {
-      if (recipesInProgress.cocktails !== undefined) {
-        const drinks = Object.keys(recipesInProgress.cocktails);
-        drinks.forEach((idDrinks) => {
-          if (idDrinks === id) {
-            setStartButtonLabel('Continue Recipe');
-          }
-        });
-      }
-      if (recipesInProgress.meals !== undefined) {
-        const foods = Object.keys(recipesInProgress.meals);
-        foods.forEach((idFood) => {
-          if (idFood === id) {
-            setStartButtonLabel('Continue Recipe');
-          }
-        });
-      }
+      const drinkOrFoodinProgress = Object.keys(recipesInProgress[progressKey]);
+      drinkOrFoodinProgress.forEach((idInProgress) => {
+        if (idInProgress === id) {
+          setStartButtonLabel('Continue Recipe');
+        }
+      });
     }
   };
 

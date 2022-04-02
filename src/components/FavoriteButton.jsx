@@ -32,7 +32,6 @@ function FavoriteButton({ id, details }) {
     const favoriteRecipesListStore = JSON.parse(localStorage.getItem('favoriteRecipes'));
     if (favoriteRecipesListStore !== null) {
       favoriteRecipesListStore.forEach((recipe) => {
-        console.log('diego', typeof recipe.id);
         if (recipe.id === id) {
           setheartFavorite(blackHeartIcon);
         }
