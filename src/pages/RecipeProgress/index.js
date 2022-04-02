@@ -1,88 +1,89 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import { getRecipesDetailsThunk } from '../../redux/actions';
+import {
+  saveRecipeProgressOnLocalStorage,
+  getRecipeProgressFromLocalStorage,
+} from '../../services/localStorage';
 
 const THREE = 3;
-export default function RecipeProgress() {
+export default function RecipeProgress({ history }) {
   const { id } = useParams();
   const location = useLocation();
   const dispatch = useDispatch();
+  const { pathname } = location;
 
-  const [currentRoute, setCurrentRoute] = useState('');
+  const [currentRoute] = useState(() => {
+    const papathnameSplited = pathname.split('/');
+    const currRoute = papathnameSplited[papathnameSplited.length - THREE];
+    return currRoute;
+  });
+
+  const recipeDetails = useSelector((state) => state.searchResults.recipeDetails);
   const [recipesInProgress, setRecipesInProgress] = useState({});
   const [checkboxesStatus, setCheckboxesStatus] = useState({});
-  const [recipe, setRecipe] = useState({});
-  const recipeDetails = useSelector((state) => state.searchResults.recipeDetails);
+  const [recipe, setRecipe] = useState(recipeDetails);
 
   const recipeName = recipe.strMeal || recipe.strDrink;
   const recipeThumb = recipe.strMealThumb || recipe.strDrinkThumb;
   const recipeId = recipe.idMeal || recipe.idDrink;
   const progressKey = currentRoute === 'foods' ? 'meals' : 'cocktails';
 
-  useEffect(() => {
-    const { pathname } = location;
-    const papathnameSplited = pathname.split('/');
-    const currRoute = papathnameSplited[papathnameSplited.length - THREE];
-    setCurrentRoute(currRoute);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const createCheckboxesStatusAndSave = (currRecipe) => {
+    let checkboxes = {};
+    currRecipe.ingredientsAndMeasures.forEach((item) => {
+      checkboxes = { ...checkboxes, [item.ingredient]: false };
+    });
+    setCheckboxesStatus(checkboxes);
+  };
 
   useEffect(() => {
-    setRecipe(recipeDetails);
-    if (recipeDetails.length < 1) {
-      dispatch(
-        getRecipesDetailsThunk(id, `/${currentRoute}`),
-      );
-    }
-  }, [currentRoute, id, dispatch, recipeDetails]);
-
-  useEffect(() => {
+    console.log(getRecipeProgressFromLocalStorage(progressKey, id));
     if (localStorage.getItem('inProgressRecipes')) {
       setRecipesInProgress(JSON.parse(localStorage.getItem('inProgressRecipes')));
     } else {
       setRecipesInProgress({});
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (recipesInProgress[progressKey] && recipesInProgress[progressKey][id]) {
-      console.log('tem no localStorage');
-      setCheckboxesStatus(recipesInProgress[progressKey][id]);
-    } else if (Object.keys(recipe).length > 0) {
-      console.log('não tem no localStorage');
-      let checkboxes = {};
-      recipe.ingredientsAndMeasures.forEach((item) => {
-        checkboxes = { ...checkboxes, [item.ingredient]: false };
-      });
-      setCheckboxesStatus(checkboxes);
+    dispatch(getRecipesDetailsThunk(id, `/${currentRoute}`));
+    setRecipe(recipeDetails);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentRoute, recipeDetails]);
+
+  useEffect(() => {
+    const currRecipeHasProgressSaved = !!recipesInProgress[progressKey]
+    && !!recipesInProgress[progressKey][id];
+
+    const currRecipeHasLoaded = Object.keys(recipe).length > 0;
+
+    if (currRecipeHasProgressSaved) {
+      const progressSaved = recipesInProgress[progressKey][id];
+      setCheckboxesStatus(progressSaved);
+    } else if (currRecipeHasLoaded) {
+      createCheckboxesStatusAndSave(recipe);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [recipesInProgress, recipe]);
+  }, [recipe, recipesInProgress]);
 
-  // ATÉ AQUI
   useEffect(() => {
-    if (!recipeId) return;
     const currRecipeProgress = { [recipeId]: checkboxesStatus };
-    let newLocalStorage = {};
-    if (Object.keys(recipesInProgress).length === 0) {
-      newLocalStorage = { [progressKey]: { ...currRecipeProgress } };
-      console.log('sem outras receitas em progresso', newLocalStorage);
-    } else {
-      newLocalStorage = {
-        ...recipesInProgress,
-        [progressKey]: { ...recipesInProgress[progressKey], ...currRecipeProgress },
-      };
-      console.log('com outras receitas em progresso', newLocalStorage);
-    }
-    localStorage.setItem('inProgressRecipes', JSON.stringify(newLocalStorage));
+    saveRecipeProgressOnLocalStorage(progressKey, currRecipeProgress);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkboxesStatus]);
 
   const handleCheckboxOnChange = ({ name, checked }) => {
     const newCheckboxesStatus = { ...checkboxesStatus, [name]: checked };
     setCheckboxesStatus(newCheckboxesStatus);
+  };
+
+  const redirectToDoneRecipes = () => {
+    history.push('/done-recipes');
   };
 
   return (
@@ -117,10 +118,16 @@ export default function RecipeProgress() {
         data-testid="finish-recipe-btn"
         type="button"
         disabled={ !Object.values(checkboxesStatus).every((status) => status === true) }
-        // onClick={}
+        onClick={ () => redirectToDoneRecipes() }
       >
         Finish Recipe
       </button>
     </section>
   );
 }
+
+RecipeProgress.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
