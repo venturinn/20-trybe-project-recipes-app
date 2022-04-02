@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -9,77 +9,65 @@ import {
   getRecipeProgressFromLocalStorage,
 } from '../../services/localStorage';
 
-const THREE = 3;
+const routePosition = 3;
+
 export default function RecipeProgress({ history }) {
   const { id } = useParams();
   const location = useLocation();
   const dispatch = useDispatch();
-  const { pathname } = location;
 
   const [currentRoute] = useState(() => {
-    const papathnameSplited = pathname.split('/');
-    const currRoute = papathnameSplited[papathnameSplited.length - THREE];
+    const { pathname } = location;
+    const pathnameSplited = pathname.split('/');
+    const currRoute = pathnameSplited[pathnameSplited.length - routePosition];
     return currRoute;
   });
-
   const recipeDetails = useSelector((state) => state.searchResults.recipeDetails);
-  const [recipesInProgress, setRecipesInProgress] = useState({});
-  const [checkboxesStatus, setCheckboxesStatus] = useState({});
-  const [recipe, setRecipe] = useState(recipeDetails);
-
-  const recipeName = recipe.strMeal || recipe.strDrink;
-  const recipeThumb = recipe.strMealThumb || recipe.strDrinkThumb;
-  const recipeId = recipe.idMeal || recipe.idDrink;
+  const [checkboxesState, setCheckboxesState] = useState({});
+  const recipeName = recipeDetails.strMeal || recipeDetails.strDrink;
+  const recipeThumb = recipeDetails.strMealThumb || recipeDetails.strDrinkThumb;
   const progressKey = currentRoute === 'foods' ? 'meals' : 'cocktails';
+  const recipeId = useRef('');
 
   const createCheckboxesStatusAndSave = (currRecipe) => {
     let checkboxes = {};
-    currRecipe.ingredientsAndMeasures.forEach((item) => {
-      checkboxes = { ...checkboxes, [item.ingredient]: false };
+    currRecipe.ingredientsAndMeasures.forEach((value) => {
+      checkboxes = { ...checkboxes, [value.ingredient]: false };
     });
-    setCheckboxesStatus(checkboxes);
+    setCheckboxesState(checkboxes);
   };
 
   useEffect(() => {
-    console.log(getRecipeProgressFromLocalStorage(progressKey, id));
-    if (localStorage.getItem('inProgressRecipes')) {
-      setRecipesInProgress(JSON.parse(localStorage.getItem('inProgressRecipes')));
-    } else {
-      setRecipesInProgress({});
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     dispatch(getRecipesDetailsThunk(id, `/${currentRoute}`));
-    setRecipe(recipeDetails);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentRoute, recipeDetails]);
+  }, [currentRoute, id]);
 
   useEffect(() => {
-    const currRecipeHasProgressSaved = !!recipesInProgress[progressKey]
-    && !!recipesInProgress[progressKey][id];
-
-    const currRecipeHasLoaded = Object.keys(recipe).length > 0;
-
-    if (currRecipeHasProgressSaved) {
-      const progressSaved = recipesInProgress[progressKey][id];
-      setCheckboxesStatus(progressSaved);
-    } else if (currRecipeHasLoaded) {
-      createCheckboxesStatusAndSave(recipe);
+    if (Object.keys(recipeDetails).length > 1) {
+      recipeId.current = recipeDetails.idMeal || recipeDetails.idDrink;
+      const recipeProgress = getRecipeProgressFromLocalStorage(
+        progressKey, recipeId.current,
+      );
+      if (recipeProgress === undefined) {
+        createCheckboxesStatusAndSave(recipeDetails);
+      } else {
+        setCheckboxesState(recipeProgress);
+      }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [recipe, recipesInProgress]);
+  }, [recipeDetails]);
 
   useEffect(() => {
-    const currRecipeProgress = { [recipeId]: checkboxesStatus };
-    saveRecipeProgressOnLocalStorage(progressKey, currRecipeProgress);
+    if (Object.keys(recipeDetails).length > 1) {
+      const currRecipeProgress = { [recipeId.current]: checkboxesState };
+      saveRecipeProgressOnLocalStorage(progressKey, currRecipeProgress);
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [checkboxesStatus]);
+  }, [checkboxesState]);
 
   const handleCheckboxOnChange = ({ name, checked }) => {
-    const newCheckboxesStatus = { ...checkboxesStatus, [name]: checked };
-    setCheckboxesStatus(newCheckboxesStatus);
+    const newCheckboxesStatus = { ...checkboxesState, [name]: checked };
+    setCheckboxesState(newCheckboxesStatus);
   };
 
   const redirectToDoneRecipes = () => {
@@ -96,28 +84,33 @@ export default function RecipeProgress({ history }) {
         height="200px"
       />
       <h5 data-testid="recipe-title">{recipeName}</h5>
-      <p data-testid="recipe-category">{recipe.strCategory}</p>
-      <button type="button" data-testid="share-btn">compartilhar</button>
-      <button type="button" data-testid="favorite-btn">favoritar</button>
-      {Object.keys(recipe).length > 0
-      && recipe.ingredientsAndMeasures.map(({ ingredient, measure }, index) => (
-        <label htmlFor={ id } key={ index } data-testid={ `${index}-ingredient-step` }>
-          { `${ingredient} - ${measure}` }
-          <input
-            id={ `${index}` }
-            type="checkbox"
-            name={ ingredient }
-            checked={ checkboxesStatus[ingredient] || false }
-            onChange={ ({ target }) => handleCheckboxOnChange(target) }
-          />
-        </label>
-      ))}
+      <p data-testid="recipe-category">{recipeDetails.strCategory}</p>
+      <div>
+        <button type="button" data-testid="share-btn">compartilhar</button>
+        <button type="button" data-testid="favorite-btn">favoritar</button>
+      </div>
+      {Object.keys(checkboxesState).length > 1
+      && recipeDetails.ingredientsAndMeasures.map(({ ingredient, measure }, index) => {
+        console.log(checkboxesState[ingredient] || false);
+        return (
+          <label htmlFor={ id } key={ index } data-testid={ `${index}-ingredient-step` }>
+            <input
+              id={ `${index}` }
+              type="checkbox"
+              name={ ingredient }
+              checked={ checkboxesState[ingredient] || false }
+              onChange={ ({ target }) => handleCheckboxOnChange(target) }
+            />
+            { `${ingredient} - ${measure}` }
+          </label>
+        );
+      })}
       <h5 data-testid="instructions">Instructions</h5>
-      {recipe.strInstructions}
+      {recipeDetails.strInstructions}
       <button
         data-testid="finish-recipe-btn"
         type="button"
-        disabled={ !Object.values(checkboxesStatus).every((status) => status === true) }
+        disabled={ !Object.values(checkboxesState).every((status) => status === true) }
         onClick={ () => redirectToDoneRecipes() }
       >
         Finish Recipe
