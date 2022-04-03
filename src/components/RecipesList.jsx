@@ -6,7 +6,6 @@ import CardDrink from './CardDrink';
 function RecipesList() {
   const recipesList = useSelector((state) => state.searchResults.searchBar);
   const typeOfRecipes = Object.keys(recipesList)[0];
-  console.log(typeOfRecipes);
 
   return (
     recipesList.length !== 0 && (

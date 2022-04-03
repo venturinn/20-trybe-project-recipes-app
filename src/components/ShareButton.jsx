@@ -19,6 +19,7 @@ function ShareButton({ setIsLinkCopied }) {
     }
     setIsLinkCopied(true);
   };
+  
   return (
     <Input
       type="image"

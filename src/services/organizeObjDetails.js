@@ -18,7 +18,6 @@ const cleanAndTreatObjectByIDFromAPI = (objFromAPI) => {
     { ingredient, measure: measuresList[index] }));
 
   let completeRecipeDetails = {};
-
   arrOnlyWithValidValues.forEach((value) => {
     if (!value[0].includes('strIngredient') && !value[0].includes('strMeasure')) {
       completeRecipeDetails = { ...completeRecipeDetails, [value[0]]: value[1] };
