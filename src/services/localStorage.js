@@ -1,7 +1,7 @@
 export const saveRecipeProgressOnLocalStorage = (key, currRecipeProgress) => {
   if (!JSON.parse(localStorage.getItem('inProgressRecipes'))) {
-    const obj = { [key]: currRecipeProgress };
-    localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
+    const progressToSave = { [key]: currRecipeProgress };
+    localStorage.setItem('inProgressRecipes', JSON.stringify(progressToSave));
   } else {
     const progressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const obj = {
@@ -14,7 +14,6 @@ export const saveRecipeProgressOnLocalStorage = (key, currRecipeProgress) => {
 };
 
 export const getRecipeProgressFromLocalStorage = (key, id) => {
-  if (!id) return;
   if (!JSON.parse(localStorage.getItem('inProgressRecipes'))) return undefined;
 
   const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
