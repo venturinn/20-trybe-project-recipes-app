@@ -68,17 +68,19 @@ export default function RecipeDetails() {
   }, []);
 
   const verifyFoodOrDrinkInfo = (allDetails) => {
-    const title = allDetails.strMeal || allDetails.strDrink;
-    const illustration = allDetails.strMealThumb || allDetails.strDrinkThumb;
-    const category = allDetails.strAlcoholic
-      ? allDetails.strAlcoholic
-      : allDetails.strCategory;
+    if (allDetails) {
+      const title = allDetails.strMeal || allDetails.strDrink;
+      const illustration = allDetails.strMealThumb || allDetails.strDrinkThumb;
+      const category = allDetails.strAlcoholic
+        ? allDetails.strAlcoholic
+        : allDetails.strCategory;
 
-    return {
-      title,
-      illustration,
-      category,
-    };
+      return {
+        title,
+        illustration,
+        category,
+      };
+    }
   };
 
   const detailsInfo = verifyFoodOrDrinkInfo(details);

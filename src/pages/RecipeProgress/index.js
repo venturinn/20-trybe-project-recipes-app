@@ -6,8 +6,6 @@ import { getRecipesDetailsThunk } from '../../redux/actions';
 import RecipeStepByStep from '../../components/RecipeStepByStep';
 import FavoriteButton from '../../components/FavoriteButton';
 import ShareButton from '../../components/ShareButton';
-import BottomNav from '../../components/BottomNav';
-import Header from '../../components/Header';
 
 const routePosition = 3;
 
@@ -33,7 +31,6 @@ export default function RecipeProgress() {
 
   return (
     <div>
-      <Header />
       <FavoriteButton
         id={ id }
         isDrinkOrFood={ currentRoute }
@@ -46,7 +43,6 @@ export default function RecipeProgress() {
         recipeDetails={ recipeDetails }
         recipeKey={ recipeKey }
       />}
-      <BottomNav />
     </div>
   );
 }
