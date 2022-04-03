@@ -87,7 +87,7 @@ export default function RecipeDetails() {
 
   return (
     <div>
-      {details.length !== 0 && (
+      {details && details.length !== 0 && (
         <div>
           <p data-testid="recipe-title">{detailsInfo.title}</p>
           <p data-testid="recipe-category">{detailsInfo.category}</p>
