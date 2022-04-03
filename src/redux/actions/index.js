@@ -26,7 +26,7 @@ export const requestSearchBarRecipes = (search, currRoute) => async (dispatch) =
   const { value, type } = search;
   if (type === 'firstLetter' && value.length > 1) return global.alert(JUST_ONE_CHARACTER);
   const recipesList = await getRecipesByRouteFromAPI(search, currRoute);
-  
+
   if (currRoute === '/foods') {
     const { meals } = recipesList;
     if (meals === null || meals === undefined) return global.alert(NO_RECIPES_FOUND);

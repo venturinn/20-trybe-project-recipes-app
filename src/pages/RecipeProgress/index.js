@@ -22,7 +22,7 @@ export default function RecipeProgress() {
     const currRoute = pathnameSplited[pathnameSplited.length - routePosition];
     return currRoute;
   });
-  
+
   const recipeDetails = useSelector((state) => state.searchResults.recipeDetails);
   const recipeKey = currentRoute === 'foods' ? 'meals' : 'cocktails';
   const [isLinkCopied, setIsLinkCopied] = useState(false);
@@ -33,7 +33,7 @@ export default function RecipeProgress() {
 
   return (
     <div>
-      <Header/>
+      <Header />
       <FavoriteButton
         id={ id }
         isDrinkOrFood={ currentRoute }
@@ -48,3 +48,5 @@ export default function RecipeProgress() {
       />}
       <BottomNav />
     </div>
+  );
+}

@@ -25,7 +25,7 @@ export default function RecipeDetails() {
   const { pathname } = location;
   const papathnameSplited = pathname.split('/');
   const currRoute = papathnameSplited[papathnameSplited.length - 2];
-  
+
   const getFoodAndDrinkPairing = async () => {
     const foodDrinkPairing = await getFoodAndDrinkPairingById(id, `/${currRoute}`);
     setFoodAndDrinkPairing(foodDrinkPairing);
