@@ -27,6 +27,23 @@ export const getRecipesByFirstLetter = (firstLetter, currRoute) => {
   }
 };
 
+export const getRecipeDetailsById = (id, currRoute) => {
+  if (currRoute === '/foods') {
+    return requestAPI(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  } if (currRoute === '/drinks') {
+    return requestAPI(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+  }
+};
+
+// API RecipeDetais, manter na hora do merge (Diego Venturin)
+export const getFoodAndDrinkPairingById = (id, currRoute) => {
+  if (currRoute === '/foods') {
+    return requestAPI('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  } if (currRoute === '/drinks') {
+    return requestAPI('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  }
+};
+
 export const getRandomRecipe = (currRoute) => {
   if (currRoute === '/explore/foods') {
     return requestAPI('https://www.themealdb.com/api/json/v1/1/random.php');
