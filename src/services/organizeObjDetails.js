@@ -7,6 +7,7 @@ const extractKeyValuesArr = (array, objectName) => {
   }, []);
   return valuesList;
 };
+
 const cleanAndTreatObjectByIDFromAPI = (objFromAPI) => {
   const arrOnlyWithValidValues = Object.entries(objFromAPI).filter(
     (entrie) => entrie[1] !== '' && entrie[1] !== null,
@@ -15,7 +16,7 @@ const cleanAndTreatObjectByIDFromAPI = (objFromAPI) => {
   const measuresList = extractKeyValuesArr(arrOnlyWithValidValues, 'strMeasure');
   const ingredientsAndMeasures = ingredientsList.map((ingredient, index) => (
     { ingredient, measure: measuresList[index] }));
-  console.log('arrOnlyWithValidValues', arrOnlyWithValidValues);
+
   let completeRecipeDetails = {};
   arrOnlyWithValidValues.forEach((value) => {
     if (!value[0].includes('strIngredient') && !value[0].includes('strMeasure')) {
@@ -23,7 +24,8 @@ const cleanAndTreatObjectByIDFromAPI = (objFromAPI) => {
     }
   });
   completeRecipeDetails = { ...completeRecipeDetails, ingredientsAndMeasures };
-  console.log(completeRecipeDetails);
+
   return completeRecipeDetails;
 };
+
 export default cleanAndTreatObjectByIDFromAPI;

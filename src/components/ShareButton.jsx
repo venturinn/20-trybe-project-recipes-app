@@ -7,10 +7,19 @@ const copy = require('clipboard-copy');
 
 function ShareButton({ setIsLinkCopied }) {
   const buttonShareClick = () => {
-    const urlShare = window.location.href;
-    copy(urlShare);
+    const adressBar = window.location.href;
+    const adressBarSplitted = adressBar.split('/');
+    const lastUrlAdress = adressBarSplitted[adressBarSplitted.length - 1];
+    if (lastUrlAdress === 'in-progress') {
+      const urlToShare = adressBarSplitted
+        .filter((adress) => adress !== lastUrlAdress).join('/');
+      copy(urlToShare);
+    } else {
+      copy(adressBar);
+    }
     setIsLinkCopied(true);
   };
+
   return (
     <Input
       type="image"

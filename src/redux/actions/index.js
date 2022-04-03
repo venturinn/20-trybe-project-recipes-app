@@ -4,7 +4,6 @@ import {
   getRecipesByFirstLetter,
   getRecipeDetailsById,
 } from '../../services';
-
 import cleanAndTreatObjectByIDFromAPI from '../../services/organizeObjDetails';
 
 const JUST_ONE_CHARACTER = 'Your search must have only 1 (one) character';
@@ -27,6 +26,7 @@ export const requestSearchBarRecipes = (search, currRoute) => async (dispatch) =
   const { value, type } = search;
   if (type === 'firstLetter' && value.length > 1) return global.alert(JUST_ONE_CHARACTER);
   const recipesList = await getRecipesByRouteFromAPI(search, currRoute);
+
   if (currRoute === '/foods') {
     const { meals } = recipesList;
     if (meals === null || meals === undefined) return global.alert(NO_RECIPES_FOUND);
@@ -38,10 +38,13 @@ export const requestSearchBarRecipes = (search, currRoute) => async (dispatch) =
     dispatch(setSearchBarResults(recipesList));
   }
 };
+
 export const SET_TREATED_RECIPE_DETAILS_LIST = 'SET_TREATED_RECIPE_DETAILS_LIST';
+
 const setTreatedRecipeDetailsList = (payload) => ({
   type: SET_TREATED_RECIPE_DETAILS_LIST, payload,
 });
+
 export const getRecipesDetailsThunk = (id, currRoute) => async (dispatch) => {
   const recipeDetails = await getRecipeDetailsById(id, currRoute);
   if (currRoute === '/foods') {
