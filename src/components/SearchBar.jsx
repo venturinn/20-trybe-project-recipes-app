@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Input from './Input';
 import Button from './Button';
 import { requestSearchBarRecipes } from '../redux/actions';
+import { setFilterName } from '../redux/actions/filters';
 
 const SEARCH_BAR_INITIAL_STATE = {
   value: '',
@@ -15,6 +16,7 @@ function SearchBar({ currentRoute }) {
   const [searchBar, setSearchBar] = useState(SEARCH_BAR_INITIAL_STATE);
 
   const handleSearchBarButtonOnClick = () => {
+    dispatch(setFilterName(''));
     dispatch(requestSearchBarRecipes(searchBar, currentRoute));
   };
 

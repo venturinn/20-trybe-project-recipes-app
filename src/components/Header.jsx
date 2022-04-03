@@ -25,7 +25,6 @@ function Header() {
   const history = useHistory();
   const location = useLocation();
   const { pathname } = location;
-  console.log(pathname);
 
   const title = TITLE_BY_ROUTE[pathname];
   const showSearchOption = (pathname === '/foods'
