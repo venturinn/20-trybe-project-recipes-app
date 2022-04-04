@@ -29,9 +29,9 @@ export default function DoneRecipes() {
               />
             </div>
           ))}
-          {doneRecipesList.map((recipe, idx) => (
+          {doneRecipesList.map((recipe, index) => (
             <div key={ recipe.id }>
-              <DoneRecipeCard recipe={ recipe } idx={ idx } />
+              <DoneRecipeCard recipe={ recipe } index={ index } />
             </div>
           )) }
         </div>
