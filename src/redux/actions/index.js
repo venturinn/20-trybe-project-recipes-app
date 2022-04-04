@@ -5,6 +5,7 @@ import {
   getRecipeDetailsById,
 } from '../../services';
 import cleanAndTreatObjectByIDFromAPI from '../../services/organizeObjDetails';
+import { getDoneRecipesFromLocalStorage } from '../../services/localStorage';
 
 const JUST_ONE_CHARACTER = 'Your search must have only 1 (one) character';
 const NO_RECIPES_FOUND = 'Sorry, we haven\'t found any recipes for these filters.';
@@ -57,3 +58,39 @@ export const getRecipesDetailsThunk = (id, currRoute) => async (dispatch) => {
     dispatch(setTreatedRecipeDetailsList(treatedRecipeDetailsList));
   }
 };
+
+// filtros da página de done recipes
+export const SET_DONE_RECIPES_LIST_BY_FILTER = 'SET_DONE_RECIPES_LIST_BY_FILTER';
+
+const setDoneRecipesListByFilter = (payload) => ({
+  type: SET_DONE_RECIPES_LIST_BY_FILTER, payload,
+});
+
+export const showAllDoneRecipes = () => (dispatch) => {
+  const result = getDoneRecipesFromLocalStorage('all');
+  console.log('em actions, no get', result);
+  dispatch(setDoneRecipesListByFilter(result));
+};
+
+const filterByDoneFoodRecipes = () => (dispatch) => {
+  console.log('em foods');
+  const result = getDoneRecipesFromLocalStorage('food');
+  dispatch(setDoneRecipesListByFilter(result));
+};
+
+const filterByDoneDrinkRecipes = () => (dispatch) => {
+  const result = getDoneRecipesFromLocalStorage('drink');
+  dispatch(setDoneRecipesListByFilter(result));
+};
+
+export const doneRecipesFiltersList = [
+  { label: 'All',
+    testId: 'filter-by-all-btn',
+    onClick: showAllDoneRecipes },
+  { label: 'Food',
+    testId: 'filter-by-food-btn',
+    onClick: filterByDoneFoodRecipes },
+  { label: 'Drink',
+    testId: 'filter-by-drink-btn',
+    onClick: filterByDoneDrinkRecipes },
+];

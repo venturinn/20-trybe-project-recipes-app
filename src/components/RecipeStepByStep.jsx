@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import {
   saveRecipeProgressOnLocalStorage,
   getRecipeProgressFromLocalStorage,
+  saveDoneRecipeOnLocalStorage,
 } from '../services/localStorage';
 
 export default function RecipeStepByStep(props) {
@@ -49,8 +50,9 @@ export default function RecipeStepByStep(props) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [checkboxesState]);
 
-  const redirectToDoneRecipes = () => {
+  const redirectToDoneRecipes = (details) => {
     setShouldRedirect(true);
+    saveDoneRecipeOnLocalStorage(details);
   };
 
   return (
@@ -91,7 +93,7 @@ export default function RecipeStepByStep(props) {
         data-testid="finish-recipe-btn"
         type="button"
         disabled={ !Object.values(checkboxesState).every((status) => status === true) }
-        onClick={ redirectToDoneRecipes }
+        onClick={ () => redirectToDoneRecipes(recipeDetails) }
       >
         Finish Recipe
       </button>
