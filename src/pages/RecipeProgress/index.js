@@ -36,7 +36,11 @@ export default function RecipeProgress() {
         isDrinkOrFood={ currentRoute }
         details={ recipeDetails }
       />
-      <ShareButton setIsLinkCopied={ setIsLinkCopied } />
+      <ShareButton
+        setIsLinkCopied={ setIsLinkCopied }
+        type={ currentRoute }
+        id={ id }
+      />
       {isLinkCopied && <p>Link copied!</p>}
       {Object.keys(recipeDetails).length > 0
       && <RecipeStepByStep

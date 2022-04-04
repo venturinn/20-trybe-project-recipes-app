@@ -9,12 +9,11 @@ import { doneRecipesFiltersList, showAllDoneRecipes } from '../../redux/actions'
 export default function DoneRecipes() {
   const dispatch = useDispatch();
   const doneRecipesList = useSelector((state) => state.searchFilters.doneRecipesResults);
-  // fazer useEffect que recebe action para trazer a lista de receitas feitas a ser renderizada
+
   useEffect(() => {
     dispatch(showAllDoneRecipes());
   }, []);
-  // fazer filtros (cada uma é uma action)
-  // useSelector
+
   return (
     <section>
       <Header />
@@ -30,15 +29,14 @@ export default function DoneRecipes() {
               />
             </div>
           ))}
-          {doneRecipesList.map((recipe) => (
+          {doneRecipesList.map((recipe, idx) => (
             <div key={ recipe.id }>
-              <DoneRecipeCard recipe={ recipe } />
+              <DoneRecipeCard recipe={ recipe } idx={ idx } />
             </div>
           )) }
         </div>
       )
-        : (<p>Você ainda não tem receitas feitas</p>)}
-
+        : <p>Você ainda não tem receitas feitas</p>}
     </section>
   );
 }
