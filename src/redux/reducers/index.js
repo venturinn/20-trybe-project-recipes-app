@@ -3,10 +3,9 @@ import user from './user';
 import searchResults from './searchResults';
 import category from './category';
 import filter from './filters';
-import searchFilters from './searchFilters';
 
 const rootReducer = combineReducers(
-  { user, searchResults, category, filter, searchFilters },
+  { user, searchResults, category, filter },
 );
 
 export default rootReducer;

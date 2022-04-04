@@ -8,7 +8,7 @@ import { doneRecipesFiltersList, showAllDoneRecipes } from '../../redux/actions'
 
 export default function DoneRecipes() {
   const dispatch = useDispatch();
-  const doneRecipesList = useSelector((state) => state.searchFilters.doneRecipesResults);
+  const doneRecipesList = useSelector((state) => state.filter.doneRecipes);
 
   useEffect(() => {
     dispatch(showAllDoneRecipes());

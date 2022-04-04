@@ -8,7 +8,7 @@ const mountNewDoneRecipe = (recipe) => {
     alcoholicOrNot: recipe.strAlcoholic || '',
     name: recipe.strMeal || recipe.strDrink,
     image: recipe.strMealThumb || recipe.strDrinkThumb,
-    doneDate: 'quando-a-receita-foi-concluida',
+    doneDate: new Date().getTime(),
     tags: !strTags ? [] : strTags.split(','),
   };
   return doneRecipe;

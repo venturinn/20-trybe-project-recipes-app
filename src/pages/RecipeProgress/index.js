@@ -38,6 +38,7 @@ export default function RecipeProgress() {
       />
       <ShareButton
         setIsLinkCopied={ setIsLinkCopied }
+        testId="share-btn"
         type={ currentRoute }
         id={ id }
       />

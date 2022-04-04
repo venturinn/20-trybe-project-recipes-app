@@ -5,7 +5,12 @@ import ShareButton from './ShareButton';
 export default function DoneRecipeCard(props) {
   const { recipe, idx } = props;
   const [isLinkCopied, setIsLinkCopied] = useState(false);
-  console.log(recipe);
+  const [filledDate] = useState(() => {
+    const toLocaleString = new Date(recipe.doneDate).toLocaleDateString().split(',')[0];
+    const date = toLocaleString.split('/').map((str) => str.padStart(2, '0')).join('/');
+    return date;
+  });
+
   return (
     <div>
       <img
@@ -15,15 +20,18 @@ export default function DoneRecipeCard(props) {
         width="110px"
         height="100px"
       />
-      <p>{ recipe.category }</p>
+      <p data-testid={ `${idx}-horizontal-top-text` }>
+        { recipe.category }
+      </p>
       <p>{ recipe.alcoholicOrNot }</p>
-      <h5>{recipe.name}</h5>
-      <p>{`Done in: ${recipe.doneDate}`}</p>
-      {recipe.tags.map((tag, index) => (
-        <p key={ tag } data-testid={ `${index}-${tag}-horizontal-tag` }>{ tag }</p>))}
+      <h5 data-testid={ `${idx}-horizontal-name` }>{recipe.name}</h5>
+      <p data-testid={ `${idx}-horizontal-done-date` }>{`Done in: ${filledDate}`}</p>
+      {recipe.tags.map((tag) => (
+        <p key={ tag } data-testid={ `${idx}-${tag}-horizontal-tag` }>{ tag }</p>))}
       <div>
         <ShareButton
           setIsLinkCopied={ setIsLinkCopied }
+          testId={ `${idx}-horizontal-share-btn` }
           type={ recipe.type }
           id={ recipe.id }
         />

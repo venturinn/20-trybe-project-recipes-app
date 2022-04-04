@@ -103,6 +103,7 @@ export default function RecipeDetails() {
           <FavoriteButton id={ id } isDrinkOrFood={ currRoute } details={ details } />
           <ShareButton
             setIsLinkCopied={ setIsLinkCopied }
+            testId="share-btn"
             type={ currRoute }
             id={ id }
           />
