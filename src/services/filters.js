@@ -9,4 +9,11 @@ const getRecipesByCategory = (currRoute, category) => {
   return requestAPI(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
 };
 
-export default getRecipesByCategory;
+const getRecipesByIngredients = (currRoute, name) => {
+  if (currRoute === '/explore/foods/ingredients') {
+    return requestAPI(`http://www.themealdb.com/api/json/v1/1/filter.php?i=${name}`);
+  }
+  return requestAPI(`http://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${name}`);
+};
+
+export { getRecipesByCategory, getRecipesByIngredients };

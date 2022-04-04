@@ -4,6 +4,11 @@ import searchResults from './searchResults';
 import category from './category';
 import filter from './filters';
 
-const rootReducer = combineReducers({ user, searchResults, category, filter });
+const rootReducer = combineReducers({
+  user,
+  searchResults,
+  category,
+  filter,
+});
 
 export default rootReducer;
