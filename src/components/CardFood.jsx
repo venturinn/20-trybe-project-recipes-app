@@ -6,9 +6,10 @@ import { useSelector } from 'react-redux';
 function CardFood({ recipesList }) {
   const cardLimit = 11;
   const listToRender = recipesList.filter((_item, index) => index <= cardLimit);
+  console.log('listToRender', listToRender.length);
 
-  const filter = useSelector((state) => state.filter);
-  const shouldRedirect = filter === '';
+  const mainPageFilter = useSelector((state) => state.filter.mainPage);
+  const shouldRedirect = mainPageFilter === '';
 
   if (listToRender.length === 1 && shouldRedirect) {
     return (<Redirect push to={ `/foods/${listToRender[0].idMeal}` } />);

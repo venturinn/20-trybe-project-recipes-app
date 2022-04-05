@@ -37,8 +37,8 @@ export default function RecipeDetails() {
   };
 
   const verifyRecipeInProgress = () => {
-    const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const progressKey = currRoute === 'foods' ? 'meals' : 'cocktails';
+    const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
     if (recipesInProgress !== null) {
       const drinkOrFoodinProgress = Object.keys(recipesInProgress[progressKey]);
       drinkOrFoodinProgress.forEach((idInProgress) => {
@@ -100,8 +100,13 @@ export default function RecipeDetails() {
             height="200px"
           />
 
-          <FavoriteButton id={ id } isDrinkOrFood={ currRoute } details={ details } />
-          <ShareButton setIsLinkCopied={ setIsLinkCopied } />
+          <FavoriteButton id={ id } details={ details } />
+          <ShareButton
+            setIsLinkCopied={ setIsLinkCopied }
+            testId="share-btn"
+            type={ currRoute }
+            id={ id }
+          />
           {isLinkCopied && <p>Link copied!</p>}
 
           <p data-testid="instructions">{details.strInstructions}</p>

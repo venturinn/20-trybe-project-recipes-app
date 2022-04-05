@@ -4,13 +4,11 @@ import { Link, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 function CardDrink({ recipesList }) {
-  // console.log('recipes em cardDrink', recipesList);
-
   const cardLimit = 11;
   const listToRender = recipesList.filter((_item, index) => index <= cardLimit);
 
-  const filter = useSelector((state) => state.filter);
-  const shouldRedirect = filter === '';
+  const mainPageFilter = useSelector((state) => state.filter.mainPage);
+  const shouldRedirect = mainPageFilter === '';
   if (listToRender.length === 1 && shouldRedirect) {
     return (<Redirect push to={ `/drinks/${listToRender[0].idDrink}` } />);
   }

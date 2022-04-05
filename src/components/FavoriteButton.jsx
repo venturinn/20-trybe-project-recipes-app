@@ -80,5 +80,9 @@ FavoriteButton.propTypes = {
     PropTypes.string,
     PropTypes.object,
     PropTypes.array,
-  ]).isRequired,
+  ]),
+};
+
+FavoriteButton.defaultProps = {
+  details: '',
 };
