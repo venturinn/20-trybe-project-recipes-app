@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 function CardFood({ recipesList }) {
   const cardLimit = 11;
   const listToRender = recipesList.filter((_item, index) => index <= cardLimit);
-  console.log('listToRender', listToRender.length);
 
   const mainPageFilter = useSelector((state) => state.filter.mainPage);
   const shouldRedirect = mainPageFilter === '';
