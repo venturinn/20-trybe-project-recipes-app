@@ -76,7 +76,7 @@ const setFavoriteRecipesList = (payload) => ({
   type: SET_FAVORITE_RECIPES_LIST, payload,
 });
 
-export const showAllDoneRecipes = (tag) => (dispatch) => {
+export const showAllDoneOrFavoriteRecipes = (tag) => (dispatch) => {
   console.log('tag:', tag);
   if (tag === 'doneRecipes') {
     dispatch(setDoneRecipesList(getDoneRecipesFromLocalStorage()));
@@ -85,7 +85,7 @@ export const showAllDoneRecipes = (tag) => (dispatch) => {
   }
 };
 
-const filterByDoneFoodRecipes = (tag) => (dispatch) => {
+const filterByDoneOrFavoriteFoodRecipes = (tag) => (dispatch) => {
   console.log('tag:', tag);
   if (tag === 'doneRecipes') {
     dispatch(setDoneRecipesList(getDoneRecipesFromLocalStorage('food')));
@@ -94,7 +94,7 @@ const filterByDoneFoodRecipes = (tag) => (dispatch) => {
   }
 };
 
-const filterByDoneDrinkRecipes = (tag) => (dispatch) => {
+const filterByDoneOrFavoriteDrinkRecipes = (tag) => (dispatch) => {
   console.log('tag:', tag);
   if (tag === 'doneRecipes') {
     dispatch(setDoneRecipesList(getDoneRecipesFromLocalStorage('drink')));
@@ -104,16 +104,16 @@ const filterByDoneDrinkRecipes = (tag) => (dispatch) => {
   }
 };
 
-export const doneRecipesFiltersList = [
+export const doneOrFavoriteRecipesFiltersList = [
   { label: 'All',
     testId: 'filter-by-all-btn',
-    onClick: (tag) => showAllDoneRecipes(tag) },
+    onClick: (tag) => showAllDoneOrFavoriteRecipes(tag) },
   { label: 'Food',
     testId: 'filter-by-food-btn',
-    onClick: (tag) => filterByDoneFoodRecipes(tag) },
+    onClick: (tag) => filterByDoneOrFavoriteFoodRecipes(tag) },
   { label: 'Drink',
     testId: 'filter-by-drink-btn',
-    onClick: (tag) => filterByDoneDrinkRecipes(tag) },
+    onClick: (tag) => filterByDoneOrFavoriteDrinkRecipes(tag) },
 ];
 
 export const removeRecipeFromFavoritesThunk = (id) => (dispatch, getState) => {

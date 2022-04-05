@@ -4,13 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../components/Header';
 import DoneRecipeCard from '../../components/DoneRecipeCard';
 import Button from '../../components/Button';
-import { doneRecipesFiltersList, showAllDoneRecipes } from '../../redux/actions';
+import {
+  doneOrFavoriteRecipesFiltersList as doneRecipesFiltersList,
+  showAllDoneOrFavoriteRecipes as showAllDoneRecipes,
+} from '../../redux/actions';
 
 export default function DoneRecipes() {
   const dispatch = useDispatch();
   const doneRecipesList = useSelector((state) => state.filter.doneRecipes);
   const { results, tag } = doneRecipesList;
-  console.log('tag em DoneRecipes', tag);
 
   useEffect(() => {
     dispatch(showAllDoneRecipes(tag));
@@ -19,7 +21,7 @@ export default function DoneRecipes() {
   return (
     <section>
       <Header />
-      {doneRecipesList ? (
+      {results ? (
         <div>
           {doneRecipesFiltersList.map((filter) => (
             <div key={ filter.testId }>
