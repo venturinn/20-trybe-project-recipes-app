@@ -4,8 +4,6 @@ import { Link, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 function CardDrink({ recipesList }) {
-  // console.log('recipes em cardDrink', recipesList);
-
   const cardLimit = 11;
   const listToRender = recipesList.filter((_item, index) => index <= cardLimit);
 

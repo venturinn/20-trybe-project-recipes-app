@@ -116,8 +116,7 @@ export const doneOrFavoriteRecipesFiltersList = [
     onClick: (tag) => filterByDoneOrFavoriteDrinkRecipes(tag) },
 ];
 
-export const removeRecipeFromFavoritesThunk = (id) => (dispatch, getState) => {
-  console.log(id);
+export const removeRecipeFromFavoriteRecipes = (id) => (dispatch, getState) => {
   removeRecipeFromLocalStorageFavoriteRecipes(id);
   const state = getState();
   const currfavoriteRecipesList = state.filter.favoriteRecipes.results;

@@ -1,25 +1,21 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import ShareButton from './ShareButton';
 import Input from './Input';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import { removeRecipeFromFavoritesThunk } from '../redux/actions';
+import { removeRecipeFromFavoriteRecipes } from '../redux/actions';
 
 export default function FavoriteRecipeCard({ recipe, index }) {
   const [isLinkCopied, setIsLinkCopied] = useState(false);
-  const recipeCategory = useRef('');
+  const recipeCategory = useRef(recipe.alcoholicOrNot === ''
+    ? `${recipe.nationality} - ${recipe.category}`
+    : `${recipe.category} - ${recipe.alcoholicOrNot}`);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    recipeCategory.current = recipe.alcoholicOrNot === ''
-      ? `${recipe.nationality} - ${recipe.category}`
-      : `${recipe.category} - ${recipe.alcoholicOrNot}`;
-  }, []);
-
   const handleFavoriteButtonOnClick = (id) => {
-    dispatch(removeRecipeFromFavoritesThunk(id));
+    dispatch(removeRecipeFromFavoriteRecipes(id));
   };
 
   return (
@@ -33,7 +29,7 @@ export default function FavoriteRecipeCard({ recipe, index }) {
           height="100px"
         />
         <p data-testid={ `${index}-horizontal-top-text` }>
-          {recipeCategory.current }
+          { recipeCategory.current }
         </p>
         <h5 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h5>
       </Link>
@@ -48,7 +44,7 @@ export default function FavoriteRecipeCard({ recipe, index }) {
         type="image"
         src={ blackHeartIcon }
         alt={ recipe.name }
-        data-testid={ `${index}-horizontal-favorite-btn` }
+        testId={ `${index}-horizontal-favorite-btn` }
         onClick={ () => handleFavoriteButtonOnClick(recipe.id) }
       />
     </div>

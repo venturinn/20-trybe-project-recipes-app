@@ -20,7 +20,7 @@ export default function FavoriteRecipes() {
   return (
     <section>
       <Header />
-      {results.length > 0 ? (
+      {results && results.length > 0 ? (
         <div>
           {favoriteRecipesFiltersList.map((filter) => (
             <div key={ filter.testId }>
