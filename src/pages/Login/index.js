@@ -24,11 +24,8 @@ function Login() {
     const shouldEnabledButton = () => {
       const emailValid = verifyEmailFormat(email);
       const minPasswordLength = 7;
-
       if (emailValid && password.length >= minPasswordLength) {
         setButtonDisabled(false);
-        console.log(password.length);
-        console.log(password.length >= minPasswordLength);
       } else {
         setButtonDisabled(true);
       }

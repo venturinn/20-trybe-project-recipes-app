@@ -15,7 +15,7 @@ export default function Filters() {
   }, [dispatch, pathname]);
 
   const categoryList = useSelector((state) => state.category.categories);
-  const filter = useSelector((state) => state.filter);
+  const filter = useSelector((state) => state.filter.mainPage);
 
   // onClick func
   const handleFilter = (currRoute, category) => {
