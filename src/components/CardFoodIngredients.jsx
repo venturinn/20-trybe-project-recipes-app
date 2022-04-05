@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { getRecipesByIngredients } from '../services/filters';
 import { getFoodIngredients } from '../services';
 import { setSearchBarResults } from '../redux/actions';
+import { validateIgredients } from '../redux/actions/validateIngredients';
 
 export default function CardFoodIngredients() {
   const [arrayIngredients, setArrayIngredients] = useState([]);
@@ -23,6 +24,7 @@ export default function CardFoodIngredients() {
     const { name } = e.currentTarget;
     const recipes = await getRecipesByIngredients(pathname, name);
     dispatch(setSearchBarResults(recipes));
+    dispatch(validateIgredients(true));
   };
 
   const DOZE = 12;
