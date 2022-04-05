@@ -9,9 +9,11 @@ import { doneRecipesFiltersList, showAllDoneRecipes } from '../../redux/actions'
 export default function DoneRecipes() {
   const dispatch = useDispatch();
   const doneRecipesList = useSelector((state) => state.filter.doneRecipes);
+  const { results, tag } = doneRecipesList;
+  console.log('tag em DoneRecipes', tag);
 
   useEffect(() => {
-    dispatch(showAllDoneRecipes());
+    dispatch(showAllDoneRecipes(tag));
   }, []);
 
   return (
@@ -25,11 +27,11 @@ export default function DoneRecipes() {
                 id={ filter.testId }
                 label={ filter.label }
                 testId={ filter.testId }
-                onClick={ () => dispatch(filter.onClick()) }
+                onClick={ () => dispatch(filter.onClick(tag)) }
               />
             </div>
           ))}
-          {doneRecipesList.map((recipe, index) => (
+          {results.map((recipe, index) => (
             <div key={ recipe.id }>
               <DoneRecipeCard recipe={ recipe } index={ index } />
             </div>

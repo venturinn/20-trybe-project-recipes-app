@@ -5,7 +5,10 @@ import {
   getRecipeDetailsById,
 } from '../../services';
 import cleanAndTreatObjectByIDFromAPI from '../../services/organizeObjDetails';
-import { getDoneRecipesFromLocalStorage } from '../../services/localStorage';
+import {
+  getDoneRecipesFromLocalStorage,
+  getFavoriteRecipesFromLocalStorage,
+} from '../../services/localStorage';
 
 const JUST_ONE_CHARACTER = 'Your search must have only 1 (one) character';
 const NO_RECIPES_FOUND = 'Sorry, we haven\'t found any recipes for these filters.';
@@ -66,31 +69,51 @@ const setDoneRecipesListByFilter = (payload) => ({
   type: SET_DONE_RECIPES_LIST_BY_FILTER, payload,
 });
 
-export const showAllDoneRecipes = () => (dispatch) => {
-  const result = getDoneRecipesFromLocalStorage('all');
-  console.log('em actions, no get', result);
-  dispatch(setDoneRecipesListByFilter(result));
+export const SET_FAVORITE_RECIPES_LIST_BY_FILTER = 'SET_FAVORITE_RECIPES_LIST_BY_FILTER';
+
+const setFavoriteRecipesListByFilter = (payload) => ({
+  type: SET_FAVORITE_RECIPES_LIST_BY_FILTER, payload,
+});
+
+export const showAllDoneRecipes = (tag) => (dispatch) => {
+  console.log('tag:', tag);
+  if (tag === 'doneRecipes') {
+    const result = getDoneRecipesFromLocalStorage('all');
+    console.log('em actions, no get', result);
+    dispatch(setDoneRecipesListByFilter(result));
+  } if (tag === 'favoriteRecipes') {
+    dispatch(setFavoriteRecipesListByFilter(getFavoriteRecipesFromLocalStorage()));
+  }
 };
 
-const filterByDoneFoodRecipes = () => (dispatch) => {
-  console.log('em foods');
-  const result = getDoneRecipesFromLocalStorage('food');
-  dispatch(setDoneRecipesListByFilter(result));
+const filterByDoneFoodRecipes = (tag) => (dispatch) => {
+  console.log('tag:', tag);
+  if (tag === 'doneRecipes') {
+    const result = getDoneRecipesFromLocalStorage('food');
+    dispatch(setDoneRecipesListByFiltegetFavoriteRecipesFromLocalStorager(result));
+  } if (tag === 'favoriteRecipes') {
+    dispatch(setFavoriteRecipesListByFilter(getFavoriteRecipesFromLocalStorage('food')));
+  }
 };
 
-const filterByDoneDrinkRecipes = () => (dispatch) => {
-  const result = getDoneRecipesFromLocalStorage('drink');
-  dispatch(setDoneRecipesListByFilter(result));
+const filterByDoneDrinkRecipes = (tag) => (dispatch) => {
+  console.log('tag:', tag);
+  if (tag === 'doneRecipes') {
+    dispatch(setDoneRecipesListByFilter(getDoneRecipesFromLocalStorage('drink')));
+  } else {
+    console.log('luana');
+    dispatch(setFavoriteRecipesListByFilter(getFavoriteRecipesFromLocalStorage('drink')));
+  }
 };
 
 export const doneRecipesFiltersList = [
   { label: 'All',
     testId: 'filter-by-all-btn',
-    onClick: showAllDoneRecipes },
+    onClick: (tag) => showAllDoneRecipes(tag) },
   { label: 'Food',
     testId: 'filter-by-food-btn',
-    onClick: filterByDoneFoodRecipes },
+    onClick: (tag) => filterByDoneFoodRecipes(tag) },
   { label: 'Drink',
     testId: 'filter-by-drink-btn',
-    onClick: filterByDoneDrinkRecipes },
+    onClick: (tag) => filterByDoneDrinkRecipes(tag) },
 ];

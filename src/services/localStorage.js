@@ -64,3 +64,19 @@ export const getDoneRecipesFromLocalStorage = (filterType) => {
     return doneDrinkRecipesList;
   }
 };
+
+export const getFavoriteRecipesFromLocalStorage = (filterType) => {
+  if (!JSON.parse(localStorage.getItem('favoriteRecipes'))) return;
+  const favoriteRecipesList = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (filterType === 'all' || !filterType) {
+    return favoriteRecipesList;
+  } if (filterType === 'food') {
+    const favoriteFoodRecipesList = favoriteRecipesList
+      .filter(({ type }) => type === 'food');
+    return favoriteFoodRecipesList;
+  } if (filterType === 'drink') {
+    const favoriteDrinkRecipesList = favoriteRecipesList
+      .filter(({ type }) => type === 'drink');
+    return favoriteDrinkRecipesList;
+  }
+};

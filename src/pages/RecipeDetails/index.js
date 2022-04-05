@@ -100,7 +100,7 @@ export default function RecipeDetails() {
             height="200px"
           />
 
-          <FavoriteButton id={ id } isDrinkOrFood={ currRoute } details={ details } />
+          <FavoriteButton id={ id } details={ details } />
           <ShareButton
             setIsLinkCopied={ setIsLinkCopied }
             testId="share-btn"
