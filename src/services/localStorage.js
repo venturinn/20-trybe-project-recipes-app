@@ -80,3 +80,9 @@ export const getFavoriteRecipesFromLocalStorage = (filterType) => {
     return favoriteDrinkRecipesList;
   }
 };
+
+export const removeRecipeFromLocalStorageFavoriteRecipes = (id) => {
+  const favoriteRecipesList = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const newFavoriteRecipesList = favoriteRecipesList.filter((recipe) => recipe.id !== id);
+  localStorage.setItem('favoriteRecipes', JSON.stringify(newFavoriteRecipesList));
+};

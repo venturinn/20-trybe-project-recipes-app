@@ -8,6 +8,7 @@ import cleanAndTreatObjectByIDFromAPI from '../../services/organizeObjDetails';
 import {
   getDoneRecipesFromLocalStorage,
   getFavoriteRecipesFromLocalStorage,
+  removeRecipeFromLocalStorageFavoriteRecipes,
 } from '../../services/localStorage';
 
 const JUST_ONE_CHARACTER = 'Your search must have only 1 (one) character';
@@ -63,46 +64,43 @@ export const getRecipesDetailsThunk = (id, currRoute) => async (dispatch) => {
 };
 
 // filtros da página de done recipes
-export const SET_DONE_RECIPES_LIST_BY_FILTER = 'SET_DONE_RECIPES_LIST_BY_FILTER';
+export const SET_DONE_RECIPES_LIST = 'SET_DONE_RECIPES_LIST_BY_FILTER';
 
-const setDoneRecipesListByFilter = (payload) => ({
-  type: SET_DONE_RECIPES_LIST_BY_FILTER, payload,
+const setDoneRecipesList = (payload) => ({
+  type: SET_DONE_RECIPES_LIST, payload,
 });
 
-export const SET_FAVORITE_RECIPES_LIST_BY_FILTER = 'SET_FAVORITE_RECIPES_LIST_BY_FILTER';
+export const SET_FAVORITE_RECIPES_LIST = 'SET_FAVORITE_RECIPES_LIST_BY_FILTER';
 
-const setFavoriteRecipesListByFilter = (payload) => ({
-  type: SET_FAVORITE_RECIPES_LIST_BY_FILTER, payload,
+const setFavoriteRecipesList = (payload) => ({
+  type: SET_FAVORITE_RECIPES_LIST, payload,
 });
 
 export const showAllDoneRecipes = (tag) => (dispatch) => {
   console.log('tag:', tag);
   if (tag === 'doneRecipes') {
-    const result = getDoneRecipesFromLocalStorage('all');
-    console.log('em actions, no get', result);
-    dispatch(setDoneRecipesListByFilter(result));
+    dispatch(setDoneRecipesList(getDoneRecipesFromLocalStorage()));
   } if (tag === 'favoriteRecipes') {
-    dispatch(setFavoriteRecipesListByFilter(getFavoriteRecipesFromLocalStorage()));
+    dispatch(setFavoriteRecipesList(getFavoriteRecipesFromLocalStorage()));
   }
 };
 
 const filterByDoneFoodRecipes = (tag) => (dispatch) => {
   console.log('tag:', tag);
   if (tag === 'doneRecipes') {
-    const result = getDoneRecipesFromLocalStorage('food');
-    dispatch(setDoneRecipesListByFiltegetFavoriteRecipesFromLocalStorager(result));
+    dispatch(setDoneRecipesList(getDoneRecipesFromLocalStorage('food')));
   } if (tag === 'favoriteRecipes') {
-    dispatch(setFavoriteRecipesListByFilter(getFavoriteRecipesFromLocalStorage('food')));
+    dispatch(setFavoriteRecipesList(getFavoriteRecipesFromLocalStorage('food')));
   }
 };
 
 const filterByDoneDrinkRecipes = (tag) => (dispatch) => {
   console.log('tag:', tag);
   if (tag === 'doneRecipes') {
-    dispatch(setDoneRecipesListByFilter(getDoneRecipesFromLocalStorage('drink')));
+    dispatch(setDoneRecipesList(getDoneRecipesFromLocalStorage('drink')));
   } else {
     console.log('luana');
-    dispatch(setFavoriteRecipesListByFilter(getFavoriteRecipesFromLocalStorage('drink')));
+    dispatch(setFavoriteRecipesList(getFavoriteRecipesFromLocalStorage('drink')));
   }
 };
 
@@ -117,3 +115,13 @@ export const doneRecipesFiltersList = [
     testId: 'filter-by-drink-btn',
     onClick: (tag) => filterByDoneDrinkRecipes(tag) },
 ];
+
+export const removeRecipeFromFavoritesThunk = (id) => (dispatch, getState) => {
+  console.log(id);
+  removeRecipeFromLocalStorageFavoriteRecipes(id);
+  const state = getState();
+  const currfavoriteRecipesList = state.filter.favoriteRecipes.results;
+  const newFavoriteRecipesList = currfavoriteRecipesList
+    .filter((recipe) => recipe.id !== id);
+  dispatch(setFavoriteRecipesList(newFavoriteRecipesList));
+};

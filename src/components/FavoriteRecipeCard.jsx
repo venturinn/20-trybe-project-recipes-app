@@ -1,10 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import FavoriteButton from './FavoriteButton';
 // import ShareButton from './ShareButton';
+import { useDispatch } from 'react-redux';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { removeRecipeFromFavoritesThunk } from '../redux/actions';
 
 export default function FavoriteRecipeCard({ recipe, index }) {
+  const dispatch = useDispatch();
+  const handleFavoriteButtonOnClick = (id) => {
+    console.log(id);
+    dispatch(removeRecipeFromFavoritesThunk(id));
+  };
+
   return (
     <div>
       <Link to={ `/${recipe.type}s/${recipe.id}` }>
@@ -26,7 +34,12 @@ export default function FavoriteRecipeCard({ recipe, index }) {
         )}
         <h5 data-testid={ `${index}-horizontal-name` }>{recipe.name}</h5>
       </Link>
-      <FavoriteButton id={ recipe.id } />
+      <input
+        type="image"
+        src={ blackHeartIcon }
+        alt={ recipe.name }
+        onClick={ () => handleFavoriteButtonOnClick(recipe.id) }
+      />
     </div>
   );
 }
