@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import BottomNav from '../../components/BottomNav';
@@ -10,9 +10,12 @@ import { setMainPageRecipes, cleanUpMainPage } from '../../redux/actions/mainPag
 export default function Drinks() {
   const dispatch = useDispatch();
   const location = useLocation();
-  useState(() => {
-    dispatch(cleanUpMainPage());
-    dispatch(setMainPageRecipes(location.pathname));
+  useEffect(() => {
+    const cameFrom = location.state ? location.state.from : undefined;
+    if (cameFrom !== 'ingredient') {
+      dispatch(cleanUpMainPage());
+      dispatch(setMainPageRecipes(location.pathname));
+    }
   }, []);
 
   return (

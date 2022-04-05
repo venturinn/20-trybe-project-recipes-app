@@ -4,7 +4,6 @@ import { Link, useLocation } from 'react-router-dom';
 import { getRecipesByIngredients } from '../services/filters';
 import { getDrinkIngredients } from '../services';
 import { setSearchBarResults } from '../redux/actions';
-import { validateIgredients } from '../redux/actions/validateIngredients';
 
 export default function CardDrinkIngredients() {
   const [arrayIngredients, setArrayIngredients] = useState([]);
@@ -24,7 +23,6 @@ export default function CardDrinkIngredients() {
     const { name } = e.currentTarget;
     const recipes = await getRecipesByIngredients(pathname, name);
     dispatch(setSearchBarResults(recipes));
-    dispatch(validateIgredients(true));
   };
 
   const DOZE = 12;
@@ -34,7 +32,7 @@ export default function CardDrinkIngredients() {
       { arrayIngredients.slice(0, DOZE)
         .map((ingr, indx) => (
           <Link
-            to="/drinks"
+            to={ { pathname: '/drinks', state: { from: 'ingredient' } } }
             key={ indx }
             name={ ingr.strIngredient1 }
             onClick={ (e) => handleIngredientDrink(e) }
