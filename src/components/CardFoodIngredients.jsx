@@ -25,11 +25,11 @@ export default function CardFoodIngredients() {
     dispatch(setSearchBarResults(recipes));
   };
 
-  const DOZE = 12;
+  const TWELVE = 12;
 
   return (
     <div>
-      { arrayIngredients.slice(0, DOZE)
+      { arrayIngredients.slice(0, TWELVE)
         .map(({ idIngredient, strIngredient }, indx) => (
           <Link
             to={ { pathname: '/foods', state: { from: 'ingredient' } } }
