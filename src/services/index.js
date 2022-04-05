@@ -1,5 +1,5 @@
 import getRecipesForMainPage from './mainPage';
-import getRecipesByCategory from './filters';
+import { getRecipesByCategory } from './filters';
 import getCategories from './category';
 import requestAPI from './requestAPI';
 
@@ -45,10 +45,18 @@ export const getFoodAndDrinkPairingById = (id, currRoute) => {
 };
 
 export const getRandomRecipe = (currRoute) => {
-  if (currRoute === '/explore/foods') {
+  if (currRoute === '/explore/foods' || uurrRoute === '/explore/foods/') {
     return requestAPI('https://www.themealdb.com/api/json/v1/1/random.php');
   }
   return requestAPI('https://www.thecocktaildb.com/api/json/v1/1/random.php');
 };
 
-export { getRecipesForMainPage, getCategories, getRecipesByCategory };
+export const getFoodIngredients = () => requestAPI('https://www.themealdb.com/api/json/v1/1/list.php?i=list');
+
+export const getDrinkIngredients = () => requestAPI('https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list');
+
+export {
+  getRecipesForMainPage,
+  getCategories,
+  getRecipesByCategory,
+};
