@@ -14,6 +14,8 @@ import ExploreDrinks from './pages/ExploreDrinks';
 import ExploreFoods from './pages/ExploreFoods';
 import ExploreFoodsIngredients from './pages/ExploreFoodsIngredients';
 import ExploreDrinksIngredients from './pages/ExploreDrinksIngredients';
+import ExploreNationalities from './pages/ExploreNationalities';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -33,6 +35,8 @@ function App() {
       <Route exact path="/explore/drinks" component={ ExploreDrinks } />
       <Route path="/explore/foods/ingredients" component={ ExploreFoodsIngredients } />
       <Route path="/explore/drinks/ingredients" component={ ExploreDrinksIngredients } />
+      <Route path="/explore/foods/nationalities" component={ ExploreNationalities } />
+      <Route path="*" component={ NotFound } />
     </Switch>
   );
 }
