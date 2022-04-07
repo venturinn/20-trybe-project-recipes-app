@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import styled, { ThemeProvider } from 'styled-components';
 import { getRecipesDetailsThunk } from '../../redux/actions';
 import Button from '../../components/Button';
 import { getFoodAndDrinkPairingById } from '../../services';
@@ -9,6 +10,34 @@ import CardPairing from '../../components/CardPairing';
 import ShareButton from '../../components/ShareButton';
 import FavoriteButton from '../../components/FavoriteButton';
 import './recipeDetails.css';
+
+const MainContainer = styled.div`
+background-color: #F0F7EE;
+`;
+
+const Image = styled.img`
+width:360px;
+height:170px;
+object-fit:cover;
+`;
+
+const Title = styled.p`
+font-family:Arial, Helvetica, sans-serif;
+color: #000000;
+margin-top:6px;
+margin-bottom: 0px;
+font-size: 35px;
+font-weight: bold;
+`;
+
+const Category = styled.p`
+font-family:Arial, Helvetica, sans-serif;
+margin-top:-10px;
+color: #A9A9A9;
+font-size:18px;
+`;
+
+const buttonProps = { color: '#078466' };
 
 export default function RecipeDetails() {
   const [foodAndDrinkPairing, setFoodAndDrinkPairing] = useState(false);
@@ -86,21 +115,16 @@ export default function RecipeDetails() {
   const detailsInfo = verifyFoodOrDrinkInfo(details);
 
   return (
-    <div>
+    <MainContainer>
       {details && details.length !== 0 && (
         <div>
-          <p data-testid="recipe-title">{detailsInfo.title}</p>
-          <p data-testid="recipe-category">{detailsInfo.category}</p>
-          <img
+          <Image
             data-testid="recipe-photo"
             alt="Recipe illustration"
             src={ detailsInfo.illustration }
-            // inline apenas para melhor visualização
-            width="200px"
-            height="200px"
           />
-
-          <FavoriteButton id={ id } details={ details } />
+          <Title data-testid="recipe-title">{detailsInfo.title}</Title>
+          <Category data-testid="recipe-category">{detailsInfo.category}</Category>
           <ShareButton
             setIsLinkCopied={ setIsLinkCopied }
             testId="share-btn"
@@ -108,7 +132,7 @@ export default function RecipeDetails() {
             id={ id }
           />
           {isLinkCopied && <p>Link copied!</p>}
-
+          <FavoriteButton id={ id } details={ details } />
           <p data-testid="instructions">{details.strInstructions}</p>
           {details.ingredientsAndMeasures.map(
             ({ ingredient, measure }, index) => (
@@ -136,15 +160,17 @@ export default function RecipeDetails() {
           )}
 
           {isRecipeDone && (
-            <Button
-              testId="start-recipe-btn"
-              label={ startButtonLabel }
-              className="start-recipe-btn"
-              onClick={ () => history.push(`/${currRoute}/${id}/in-progress`) }
-            />
+            <ThemeProvider theme={ buttonProps }>
+              <Button
+                testId="start-recipe-btn"
+                label={ startButtonLabel }
+                className="start-recipe-btn"
+                onClick={ () => history.push(`/${currRoute}/${id}/in-progress`) }
+              />
+            </ThemeProvider>
           )}
         </div>
       )}
-    </div>
+    </MainContainer>
   );
 }
