@@ -38,10 +38,7 @@ export const RecipeCard = styled.div`
   margin: 20px 0;
   border-radius: 8px;
   background-color: #FFF;
-  box-shadow: 0.5px 0.7px 1.3px hsl(var(--shadow-color) / 0),
-    2.7px 3.5px 6.6px hsl(var(--shadow-color) / 0.18),
-    5.3px 7px 13.2px hsl(var(--shadow-color) / 0.36),
-    10.9px 14.2px 26.9px hsl(var(--shadow-color) / 0.54);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
   
   & img {
   width: 150px;

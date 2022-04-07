@@ -11,8 +11,8 @@ const routePosition = 3;
 
 export default function RecipeProgress() {
   const { id } = useParams();
-  const location = useLocation();
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const [currentRoute] = useState(() => {
     const { pathname } = location;
