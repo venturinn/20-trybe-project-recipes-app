@@ -2,42 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
-import styled, { ThemeProvider } from 'styled-components';
+import { ThemeProvider } from 'styled-components';
 import { getRecipesDetailsThunk } from '../../redux/actions';
 import Button from '../../components/Button';
 import { getFoodAndDrinkPairingById } from '../../services';
 import CardPairing from '../../components/CardPairing';
 import ShareButton from '../../components/ShareButton';
 import FavoriteButton from '../../components/FavoriteButton';
-import './recipeDetails.css';
-
-const MainContainer = styled.div`
-background-color: #F0F7EE;
-`;
-
-const Image = styled.img`
-width:360px;
-height:170px;
-object-fit:cover;
-`;
-
-const Title = styled.p`
-font-family:Arial, Helvetica, sans-serif;
-color: #000000;
-margin-top:6px;
-margin-bottom: 0px;
-font-size: 35px;
-font-weight: bold;
-`;
-
-const Category = styled.p`
-font-family:Arial, Helvetica, sans-serif;
-margin-top:-10px;
-color: #A9A9A9;
-font-size:18px;
-`;
-
-const buttonProps = { color: '#078466' };
+import { Ingredients, Instructions,
+  MainContainer, Image, Title, Category,
+  LinkCopied, Video, Title2, Recommended,
+  ButtonContainer, buttonProps, ShareContainer, FavoriteContainer } from './styles';
 
 export default function RecipeDetails() {
   const [foodAndDrinkPairing, setFoodAndDrinkPairing] = useState(false);
@@ -125,50 +100,64 @@ export default function RecipeDetails() {
           />
           <Title data-testid="recipe-title">{detailsInfo.title}</Title>
           <Category data-testid="recipe-category">{detailsInfo.category}</Category>
-          <ShareButton
-            setIsLinkCopied={ setIsLinkCopied }
-            testId="share-btn"
-            type={ currRoute }
-            id={ id }
-          />
-          {isLinkCopied && <p>Link copied!</p>}
-          <FavoriteButton id={ id } details={ details } />
-          <p data-testid="instructions">{details.strInstructions}</p>
-          {details.ingredientsAndMeasures.map(
-            ({ ingredient, measure }, index) => (
-              <p
-                key={ index }
-                data-testid={ `${index}-ingredient-name-and-measure` }
-              >
-                {`${ingredient} - ${measure}`}
-              </p>
-            ),
-          )}
-
+          <ShareContainer>
+            <ShareButton
+              setIsLinkCopied={ setIsLinkCopied }
+              testId="share-btn"
+              type={ currRoute }
+              id={ id }
+            />
+          </ShareContainer>
+          <LinkCopied>
+            {isLinkCopied && <p>Link copied!</p>}
+          </LinkCopied>
+          <FavoriteContainer>
+            <FavoriteButton id={ id } details={ details } />
+          </FavoriteContainer>
+          <Ingredients>
+            <Title2>Ingredients</Title2>
+            {details.ingredientsAndMeasures.map(
+              ({ ingredient, measure }, index) => (
+                <li
+                  key={ index }
+                  data-testid={ `${index}-ingredient-name-and-measure` }
+                >
+                  {`${ingredient} - ${measure}`}
+                </li>
+              ),
+            )}
+          </Ingredients>
+          <Instructions>
+            <Title2>Instructions</Title2>
+            <p data-testid="instructions">{details.strInstructions}</p>
+          </Instructions>
           {currRoute === 'foods' && (
-            <div>
+            <Video>
               <video data-testid="video" width="200" height="150">
                 <source src={ details.strYoutube } />
                 <track kind="captions" srcLang="en" label="english_captions" />
               </video>
-            </div>
+            </Video>
           )}
+          <Recommended>
+            <Title2>Recommended</Title2>
+            {foodAndDrinkPairing && (
+              <CardPairing type={ currRoute } pairingList={ foodAndDrinkPairing } />
+            )}
+          </Recommended>
+          <ButtonContainer>
+            {isRecipeDone && (
+              <ThemeProvider theme={ buttonProps }>
+                <Button
+                  testId="start-recipe-btn"
+                  label={ startButtonLabel }
+                  className="start-recipe-btn"
+                  onClick={ () => history.push(`/${currRoute}/${id}/in-progress`) }
+                />
+              </ThemeProvider>
+            )}
+          </ButtonContainer>
           <br />
-
-          {foodAndDrinkPairing && (
-            <CardPairing type={ currRoute } pairingList={ foodAndDrinkPairing } />
-          )}
-
-          {isRecipeDone && (
-            <ThemeProvider theme={ buttonProps }>
-              <Button
-                testId="start-recipe-btn"
-                label={ startButtonLabel }
-                className="start-recipe-btn"
-                onClick={ () => history.push(`/${currRoute}/${id}/in-progress`) }
-              />
-            </ThemeProvider>
-          )}
         </div>
       )}
     </MainContainer>
