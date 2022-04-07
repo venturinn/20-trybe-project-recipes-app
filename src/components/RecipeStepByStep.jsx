@@ -1,11 +1,90 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import styled from 'styled-components';
 import {
   saveRecipeProgressOnLocalStorage,
   getRecipeProgressFromLocalStorage,
   saveDoneRecipeOnLocalStorage,
 } from '../services/localStorage';
+
+const Image = styled.img`
+width:360px;
+height:170px;
+object-fit:cover;
+`;
+
+const Title = styled.p`
+font-family:Arial, Helvetica, sans-serif;
+color: #000000;
+margin-top:6px;
+margin-bottom: 0px;
+font-size: 35px;
+font-weight: bold;
+margin-left: 10px;
+`;
+
+const Category = styled.p`
+font-family:Arial, Helvetica, sans-serif;
+margin-top:-10px;
+color: #A9A9A9;
+font-size:18px;
+margin-left: 10px;
+`;
+
+const Title2 = styled.p`
+font-family:Arial, Helvetica, sans-serif;
+color: #000000;
+font-size:25px;
+`;
+
+const Ingredients = styled.div`
+position:relative;
+top: 15px;
+width: 340px;
+height: 200px;
+margin-left: auto;
+margin-right: auto;
+padding: 15px;
+background-color:white;
+border-radius: 10px;
+box-shadow: 0px 4px 8px rgba(0,0,0,0.3);
+overflow-y: auto;
+margin-bottom:20px;
+text-align: justify;
+`;
+
+const Instructions = styled.div`
+position:relative;
+top: 15px;
+width: 340px;
+height: 280px;
+margin-left: auto;
+margin-right: auto;
+padding: 15px;
+background-color:white;
+border-radius: 10px;
+box-shadow: 0px 4px 8px rgba(0,0,0,0.3);
+overflow-y: auto;
+margin-bottom:20px;
+text-align: justify;
+`;
+
+const ButtonContainer = styled.div`
+width: 300px;
+margin-top: 30px;
+margin-left: auto;
+margin-right: auto;
+`;
+
+const ButtonFinish = styled.button`
+background-color: #078466;
+border-radius: 10px;
+color: white;
+font-size: 20px;
+width: 300px;
+padding: 10px 70px 10px 70px;
+`;
 
 export default function RecipeStepByStep(props) {
   const { recipeDetails, recipeKey } = props;
@@ -58,45 +137,53 @@ export default function RecipeStepByStep(props) {
   return (
     <section>
       {shouldRedirect && <Redirect to="/done-recipes" />}
-      <img
+      <Image
         src={ recipeThumb.current }
         alt={ recipeName.current }
         data-testid="recipe-photo"
         width="200px"
         height="200px"
       />
-      <h5 data-testid="recipe-title">{recipeName.current}</h5>
-      <p data-testid="recipe-category">{recipeDetails.strCategory}</p>
-      {Object.keys(checkboxesState).length > 0
+      <Title data-testid="recipe-title">{recipeName.current}</Title>
+      <Category data-testid="recipe-category">{recipeDetails.strCategory}</Category>
+      <Ingredients>
+        <Title2>Ingredients</Title2>
+        {Object.keys(checkboxesState).length > 0
       && recipeDetails.ingredientsAndMeasures.map(({ ingredient, measure }, index) => {
         console.log(checkboxesState[ingredient] || false);
         return (
-          <label
-            htmlFor={ `${index}` }
-            key={ index }
-            data-testid={ `${index}-ingredient-step` }
-          >
-            <input
-              id={ `${index}` }
-              type="checkbox"
-              name={ ingredient }
-              checked={ checkboxesState[ingredient] || false }
-              onChange={ ({ target }) => handleCheckboxOnChange(target) }
-            />
-            { `${ingredient} - ${measure}` }
-          </label>
+          <div key={ index }>
+            <label
+              htmlFor={ `${index}` }
+              data-testid={ `${index}-ingredient-step` }
+            >
+              <input
+                id={ `${index}` }
+                type="checkbox"
+                name={ ingredient }
+                checked={ checkboxesState[ingredient] || false }
+                onChange={ ({ target }) => handleCheckboxOnChange(target) }
+              />
+              { `${ingredient} - ${measure}` }
+            </label>
+          </div>
         );
       })}
-      <h5 data-testid="instructions">Instructions</h5>
-      {recipeDetails.strInstructions}
-      <button
-        data-testid="finish-recipe-btn"
-        type="button"
-        disabled={ !Object.values(checkboxesState).every((status) => status === true) }
-        onClick={ () => redirectToDoneRecipes(recipeDetails) }
-      >
-        Finish Recipe
-      </button>
+      </Ingredients>
+      <Instructions>
+        <Title2 data-testid="instructions">Instructions</Title2>
+        {recipeDetails.strInstructions}
+      </Instructions>
+      <ButtonContainer>
+        <ButtonFinish
+          data-testid="finish-recipe-btn"
+          type="button"
+          disabled={ !Object.values(checkboxesState).every((status) => status === true) }
+          onClick={ () => redirectToDoneRecipes(recipeDetails) }
+        >
+          Finish Recipe
+        </ButtonFinish>
+      </ButtonContainer>
     </section>
   );
 }
