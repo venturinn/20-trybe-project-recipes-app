@@ -45,7 +45,7 @@ export const getFoodAndDrinkPairingById = (id, currRoute) => {
 };
 
 export const getRandomRecipe = (currRoute) => {
-  if (currRoute === '/explore/foods' || uurrRoute === '/explore/foods/') {
+  if (currRoute === '/explore/foods' || currRoute === '/explore/foods/') {
     return requestAPI('https://www.themealdb.com/api/json/v1/1/random.php');
   }
   return requestAPI('https://www.thecocktaildb.com/api/json/v1/1/random.php');

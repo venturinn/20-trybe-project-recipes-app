@@ -11,8 +11,8 @@ import { RecipeCard, InteractDivs } from '../pages/DoneRecipes/styled';
 export default function FavoriteRecipeCard({ recipe, index }) {
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   const recipeCategory = useRef(recipe.alcoholicOrNot === ''
-    ? `${recipe.nationality}/${recipe.category}`
-    : `${recipe.category}/${recipe.alcoholicOrNot}`);
+    ? `${recipe.nationality} - ${recipe.category}`
+    : `${recipe.category} - ${recipe.alcoholicOrNot}`);
   const dispatch = useDispatch();
 
   const handleFavoriteButtonOnClick = (id) => {

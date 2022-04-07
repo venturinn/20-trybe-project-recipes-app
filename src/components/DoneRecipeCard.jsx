@@ -6,8 +6,8 @@ import { RecipeCard, MyShareButton } from '../pages/DoneRecipes/styled';
 export default function DoneRecipeCard(props) {
   const { recipe, index } = props;
   const recipeCategory = useRef(recipe.alcoholicOrNot === ''
-    ? `${recipe.nationality}/${recipe.category}`
-    : `${recipe.category}/${recipe.alcoholicOrNot}`);
+    ? `${recipe.nationality} - ${recipe.category}`
+    : `${recipe.category} - ${recipe.alcoholicOrNot}`);
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   const [filledDate] = useState(() => {
     if (typeof recipe.doneDate === 'number') {
