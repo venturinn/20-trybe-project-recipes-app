@@ -2,17 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
-import { ThemeProvider } from 'styled-components';
 import { getRecipesDetailsThunk } from '../../redux/actions';
-import Button from '../../components/Button';
 import { getFoodAndDrinkPairingById } from '../../services';
 import CardPairing from '../../components/CardPairing';
 import ShareButton from '../../components/ShareButton';
 import FavoriteButton from '../../components/FavoriteButton';
 import { Ingredients, Instructions,
   MainContainer, Image, Title, Category,
-  LinkCopied, Video, Title2, Recommended,
-  ButtonContainer, buttonProps, ShareContainer, FavoriteContainer } from './styles';
+  LinkCopied, Video, Title2, Recommended, ButtonStart,
+  ButtonContainer, ShareContainer, FavoriteContainer } from './styles';
 
 export default function RecipeDetails() {
   const [foodAndDrinkPairing, setFoodAndDrinkPairing] = useState(false);
@@ -147,14 +145,12 @@ export default function RecipeDetails() {
           </Recommended>
           <ButtonContainer>
             {isRecipeDone && (
-              <ThemeProvider theme={ buttonProps }>
-                <Button
-                  testId="start-recipe-btn"
-                  label={ startButtonLabel }
-                  className="start-recipe-btn"
-                  onClick={ () => history.push(`/${currRoute}/${id}/in-progress`) }
-                />
-              </ThemeProvider>
+              <ButtonStart
+                testId="start-recipe-btn"
+                label={ startButtonLabel }
+                className="start-recipe-btn"
+                onClick={ () => history.push(`/${currRoute}/${id}/in-progress`) }
+              />
             )}
           </ButtonContainer>
           <br />

@@ -1,4 +1,15 @@
 import styled from 'styled-components';
+import Button from '../../components/Button';
+
+export const ButtonStart = styled(Button)`
+
+background-color: #078466;
+border-radius: 10px;
+color: white;
+font-size: 20px;
+width: 300px;
+padding: 10px 70px 10px 70px;
+`;
 
 export const ShareContainer = styled.div`
 position: relative;
@@ -120,5 +131,3 @@ margin-top: -110px;
 margin-left: auto;
 margin-right: auto;
 `;
-
-export const buttonProps = { color: '#078466' };
