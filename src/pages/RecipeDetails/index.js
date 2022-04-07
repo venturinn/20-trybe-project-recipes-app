@@ -10,7 +10,7 @@ import FavoriteButton from '../../components/FavoriteButton';
 import { Ingredients, Instructions,
   MainContainer, Image, Title, Category,
   LinkCopied, Video, Title2, Recommended, ButtonStart,
-  ButtonContainer, ShareContainer, FavoriteContainer } from './styles';
+  ButtonContainer, ShareContainer, FavoriteContainer } from './styled';
 
 export default function RecipeDetails() {
   const [foodAndDrinkPairing, setFoodAndDrinkPairing] = useState(false);
