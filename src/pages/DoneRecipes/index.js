@@ -8,7 +8,7 @@ import {
   doneOrFavoriteRecipesFiltersList as doneRecipesFiltersList,
   showAllDoneOrFavoriteRecipes as showAllDoneRecipes,
 } from '../../redux/actions';
-import { Wrapper, DoneRecipeSection, FiltersDiv } from './styled';
+import { Wrapper, DoneRecipeSection, FiltersDiv } from './style';
 
 export default function DoneRecipes() {
   const dispatch = useDispatch();

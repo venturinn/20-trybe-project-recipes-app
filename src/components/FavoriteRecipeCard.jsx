@@ -6,13 +6,13 @@ import Input from './Input';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { removeRecipeFromFavoriteRecipes } from '../redux/actions';
 import ShareButton from './ShareButton';
-import { RecipeCard, InteractDivs } from '../pages/DoneRecipes/styled';
+import { RecipeCard, InteractDivs } from '../pages/DoneRecipes/style';
 
 export default function FavoriteRecipeCard({ recipe, index }) {
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   const recipeCategory = useRef(recipe.alcoholicOrNot === ''
-    ? `${recipe.nationality} - ${recipe.category}`
-    : `${recipe.category} - ${recipe.alcoholicOrNot}`);
+    ? `${recipe.nationality}/${recipe.category}`
+    : `${recipe.category}/${recipe.alcoholicOrNot}`);
   const dispatch = useDispatch();
 
   const handleFavoriteButtonOnClick = (id) => {

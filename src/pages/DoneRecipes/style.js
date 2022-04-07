@@ -17,11 +17,6 @@ export const InteractDivs = styled.span`
   }
 `;
 
-// export const LinkIsCopiedFooter = styled.footer`
-//   background-color: #02484B;
-//   color: #02484B
-// `;
-
 export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -78,7 +73,6 @@ export const RecipeCard = styled.div`
 
 export const DoneRecipeSection = styled.section`
   background-color: #f0f7ee;
-  height: 100vh;
 `;
 
 export const FiltersDiv = styled.div`

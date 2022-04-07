@@ -7,7 +7,7 @@ import {
   Wrapper,
   DoneRecipeSection as FavoriteRecipeSection,
   FiltersDiv,
-} from '../DoneRecipes/styled';
+} from '../DoneRecipes/style';
 import {
   doneOrFavoriteRecipesFiltersList as favoriteRecipesFiltersList,
   showAllDoneOrFavoriteRecipes as showAllFavoriteRecipes,

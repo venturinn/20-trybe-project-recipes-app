@@ -1,13 +1,13 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { RecipeCard, MyShareButton } from '../pages/DoneRecipes/styled';
+import { RecipeCard, MyShareButton } from '../pages/DoneRecipes/style';
 
 export default function DoneRecipeCard(props) {
   const { recipe, index } = props;
   const recipeCategory = useRef(recipe.alcoholicOrNot === ''
-    ? `${recipe.nationality} - ${recipe.category}`
-    : `${recipe.category} - ${recipe.alcoholicOrNot}`);
+    ? `${recipe.nationality}/${recipe.category}`
+    : `${recipe.category}/${recipe.alcoholicOrNot}`);
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   const [filledDate] = useState(() => {
     if (typeof recipe.doneDate === 'number') {
