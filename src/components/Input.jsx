@@ -2,10 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Input(props) {
-  const { label, id, name, testId, value, type, onChange, onClick, src } = props;
+  const {
+    className,
+    label,
+    id, name,
+    testId,
+    value,
+    type,
+    onChange,
+    onClick,
+    src } = props;
 
   return (
-    <label htmlFor={ id }>
+    <label htmlFor={ id } className={ className }>
       {label}
       <input
         id={ id }
@@ -31,6 +40,7 @@ Input.propTypes = {
   onClick: PropTypes.func,
   type: PropTypes.string,
   src: PropTypes.string,
+  className: PropTypes.string,
 };
 
 Input.defaultProps = {
@@ -43,6 +53,7 @@ Input.defaultProps = {
   onClick: null,
   src: null,
   value: '',
+  className: '',
 };
 
 export default Input;
