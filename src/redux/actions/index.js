@@ -124,3 +124,9 @@ export const removeRecipeFromFavoriteRecipes = (id) => (dispatch, getState) => {
     .filter((recipe) => recipe.id !== id);
   dispatch(setFavoriteRecipesList(newFavoriteRecipesList));
 };
+
+export const SET_SEARCH_BAR_VISIBILITY = 'SET_SEARCH_BAR_VISIBILITY';
+
+export const setSearchBarVisibility = (payload) => (
+  { type: SET_SEARCH_BAR_VISIBILITY, payload }
+);

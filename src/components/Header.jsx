@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import { useDispatch } from 'react-redux';
+import { setSearchBarVisibility } from '../redux/actions';
 import styled from 'styled-components';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
@@ -42,6 +44,7 @@ const StyledHeader = styled.header`
 function Header() {
   const history = useHistory();
   const location = useLocation();
+  const dispatch = useDispatch();
   const { pathname } = location;
 
   const title = TITLE_BY_ROUTE[pathname];
@@ -52,6 +55,7 @@ function Header() {
 
   const handleSearchBarVisibility = (isVisible) => {
     setSearchBarIsVisible(!isVisible);
+    dispatch(setSearchBarVisibility(!isVisible));
   };
 
   return (

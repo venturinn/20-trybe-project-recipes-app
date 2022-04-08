@@ -5,7 +5,7 @@ import shareIcon from '../images/shareIcon.svg';
 
 const copy = require('clipboard-copy');
 
-function ShareButton({ setIsLinkCopied, type, id, testId }) {
+function ShareButton({ className, setIsLinkCopied, type, id, testId }) {
   const buttonShareClick = () => {
     const adressBar = window.location.href;
     const adressBarSplitted = adressBar.split('/');
@@ -23,6 +23,7 @@ function ShareButton({ setIsLinkCopied, type, id, testId }) {
 
   return (
     <Input
+      className={ className }
       type="image"
       src={ shareIcon }
       alt="share-icon"
@@ -39,4 +40,9 @@ ShareButton.propTypes = {
   type: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   testId: PropTypes.string.isRequired,
+  className: PropTypes.string,
+};
+
+ShareButton.defaultProps = {
+  className: '',
 };
