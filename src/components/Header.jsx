@@ -32,6 +32,10 @@ const StyledHeader = styled.header`
   & p {
     color: white;
     font-size: 26px;
+    position: absolute;
+    top: 5px;
+    left: 40vw;
+    
   }
 `;
 
