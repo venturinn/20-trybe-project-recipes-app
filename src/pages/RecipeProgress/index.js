@@ -6,6 +6,7 @@ import { getRecipesDetailsThunk } from '../../redux/actions';
 import RecipeStepByStep from '../../components/RecipeStepByStep';
 import FavoriteButton from '../../components/FavoriteButton';
 import ShareButton from '../../components/ShareButton';
+import { MainContainer, LinkCopied, ShareContainer, FavoriteContainer } from './styled';
 
 const routePosition = 3;
 
@@ -30,24 +31,28 @@ export default function RecipeProgress() {
   }, [currentRoute, id, dispatch]);
 
   return (
-    <div>
-      <FavoriteButton
-        id={ id }
-        isDrinkOrFood={ currentRoute }
-        details={ recipeDetails }
-      />
-      <ShareButton
-        setIsLinkCopied={ setIsLinkCopied }
-        testId="share-btn"
-        type={ currentRoute }
-        id={ id }
-      />
-      {isLinkCopied && <p>Link copied!</p>}
+    <MainContainer>
       {Object.keys(recipeDetails).length > 0
       && <RecipeStepByStep
         recipeDetails={ recipeDetails }
         recipeKey={ recipeKey }
       />}
-    </div>
+      <FavoriteContainer>
+        <FavoriteButton
+          id={ id }
+          isDrinkOrFood={ currentRoute }
+          details={ recipeDetails }
+        />
+      </FavoriteContainer>
+      <ShareContainer>
+        <ShareButton
+          setIsLinkCopied={ setIsLinkCopied }
+          testId="share-btn"
+          type={ currentRoute }
+          id={ id }
+        />
+      </ShareContainer>
+      {isLinkCopied && <LinkCopied>Link copied!</LinkCopied>}
+    </MainContainer>
   );
 }

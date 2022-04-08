@@ -11,12 +11,14 @@ function Input(props) {
     type,
     onChange,
     onClick,
-    src } = props;
+    src 
+  } = props;
 
   return (
     <label htmlFor={ id } className={ className }>
       {label}
       <input
+        className={ className }
         id={ id }
         type={ type }
         name={ name }
@@ -53,7 +55,7 @@ Input.defaultProps = {
   onClick: null,
   src: null,
   value: '',
-  className: '',
+  className: null,
 };
 
 export default Input;

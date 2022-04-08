@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import { useDispatch } from 'react-redux';
 import { setSearchBarVisibility } from '../redux/actions';
+import styled from 'styled-components';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
@@ -22,6 +22,24 @@ const TITLE_BY_ROUTE = {
   '/done-recipes': 'Done Recipes',
   '/favorite-recipes': 'Favorite Recipes',
 };
+
+const StyledHeader = styled.header`
+  height: 43.5px;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  background-color:#02484B;
+  padding: 10px 4px 0px 4px ;
+
+  & p {
+    color: white;
+    font-size: 26px;
+    position: absolute;
+    top: 5px;
+    left: 40vw;
+    
+  }
+`;
 
 function Header() {
   const history = useHistory();
@@ -42,7 +60,7 @@ function Header() {
 
   return (
     <section>
-      <header className="main-header">
+      <StyledHeader className="main-header">
         <Input
           src={ profileIcon }
           alt="profile-icon"
@@ -62,7 +80,7 @@ function Header() {
             onClick={ () => handleSearchBarVisibility(searchBarIsVisible) }
           />
         )}
-      </header>
+      </StyledHeader>
       {searchBarIsVisible && <SearchBar currentRoute={ pathname } />}
     </section>
   );
