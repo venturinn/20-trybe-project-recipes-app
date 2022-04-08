@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { MainCardTwo } from '../pages/Foods/style';
+import { Card } from '../pages/Foods/style';
 
 export default function MainPageCard({ recipe, index }) {
   const recipeName = useRef(recipe.strMeal ? recipe.strMeal : recipe.strDrink);
@@ -14,7 +14,7 @@ export default function MainPageCard({ recipe, index }) {
     : `/drinks/${recipe.idDrink}`;
 
   return (
-    <MainCardTwo key={ recipeId.current } data-testid={ `${index}-recipe-card` }>
+    <Card key={ recipeId.current } data-testid={ `${index}-recipe-card` }>
       <Link to={ route }>
         <img
           src={ recipeThumb.current }
@@ -26,7 +26,7 @@ export default function MainPageCard({ recipe, index }) {
           <h5 data-testid={ `${index}-card-name` }>{ recipeName.current }</h5>
         </div>
       </Link>
-    </MainCardTwo>
+    </Card>
   );
 }
 

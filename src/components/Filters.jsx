@@ -16,6 +16,9 @@ export default function Filters() {
 
   const categoryList = useSelector((state) => state.category.categories);
   const filter = useSelector((state) => state.filter.mainPage);
+  const searchBarVisibility = useSelector(
+    (state) => state.searchResults.searchBarIsVisible,
+  );
 
   // onClick func
   const handleFilter = (currRoute, category) => {
@@ -33,9 +36,11 @@ export default function Filters() {
     dispatch(setMainPageRecipes(currRoute));
   };
 
+  const conditionToRenderFilters = !searchBarVisibility && categoryList.length > 0;
+
   return (
     <div>
-      {categoryList.length > 0
+      {conditionToRenderFilters
         && (
           <div>
             <Button

@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import { useDispatch } from 'react-redux';
+import { setSearchBarVisibility } from '../redux/actions';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
@@ -24,6 +26,7 @@ const TITLE_BY_ROUTE = {
 function Header() {
   const history = useHistory();
   const location = useLocation();
+  const dispatch = useDispatch();
   const { pathname } = location;
 
   const title = TITLE_BY_ROUTE[pathname];
@@ -34,6 +37,7 @@ function Header() {
 
   const handleSearchBarVisibility = (isVisible) => {
     setSearchBarIsVisible(!isVisible);
+    dispatch(setSearchBarVisibility(!isVisible));
   };
 
   return (

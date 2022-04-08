@@ -79,6 +79,7 @@ export const FiltersDiv = styled.div`
   --shadow-color: 166deg 100% 14%;
   display: flex;
   justify-content: space-evenly;
+  flex-wrap: wrap;
   padding: 30px 0;
   margin: 20px 0;
   border-radius: 0 0 10px 10px;
