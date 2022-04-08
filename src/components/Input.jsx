@@ -11,7 +11,7 @@ function Input(props) {
     type,
     onChange,
     onClick,
-    src 
+    src,
   } = props;
 
   return (

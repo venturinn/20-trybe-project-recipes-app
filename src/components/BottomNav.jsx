@@ -6,7 +6,7 @@ import drinkIcon from '../images/drinkIcon.svg';
 import exploreIcon from '../images/exploreIcon.svg';
 import mealIcon from '../images/mealIcon.svg';
 
-const StyledNav = styled.div`
+export const StyledNav = styled.div`
   height: 53.5px;
   width: 100vw;
   background-color:#02484B;

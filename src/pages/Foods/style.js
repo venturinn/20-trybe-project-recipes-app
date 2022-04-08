@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 export const RecipesListSection = styled.section`
   background-color: #f0f7ee;
+  padding-bottom: 73.5px;
+  padding-top: 18px;
 `;
 
 export const Card = styled.div`
