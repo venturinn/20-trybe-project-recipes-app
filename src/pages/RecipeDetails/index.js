@@ -8,7 +8,6 @@ import { getFoodAndDrinkPairingById } from '../../services';
 import CardPairing from '../../components/CardPairing';
 import ShareButton from '../../components/ShareButton';
 import FavoriteButton from '../../components/FavoriteButton';
-import './recipeDetails.css';
 
 export default function RecipeDetails() {
   const [foodAndDrinkPairing, setFoodAndDrinkPairing] = useState(false);
