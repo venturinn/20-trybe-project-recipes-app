@@ -8,9 +8,12 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     font-family: 'Open Sans', sans-serif;
     box-sizing: border-box;
+  }
+  
+  #root {
     // resolve o comportamento indesejado (que surgiu inicialmente na página de detalhes)
     overflow-x: hidden;
-    }
+  }
 `;
 
 export default GlobalStyle;

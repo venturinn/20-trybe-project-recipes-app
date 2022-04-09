@@ -4,6 +4,8 @@ export const RecipesListSection = styled.section`
   background-color: #f0f7ee;
   padding-bottom: 73.5px;
   padding-top: 18px;
+  overflow-y: auto;
+  overflow-x: auto;
 `;
 
 export const Card = styled.div`

@@ -29,8 +29,8 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: nowrap;
   background-color: #078466;
-  border-bottom-left-radius: 7.5px;
-  border-bottom-right-radius: 7.5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   white-space: nowrap;
   overflow-x: scroll;
   ::-webkit-scrollbar{
@@ -40,7 +40,7 @@ const Wrapper = styled.div`
   scrollbar-width: none;  /* Firefox */
 
   // paddings diferentes para drinks e foods
-  padding-left: ${(props) => (props.location === '/foods' ? '300px' : '380px')};
+  padding-left: ${(props) => (props.location === '/foods' ? '270px' : '365px')};
 `;
 
 export default function Filters() {
