@@ -21,6 +21,8 @@ export const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  overflow-y: scroll;
+  overflow-x: scroll;
 `;
 
 export const RecipeCard = styled.div`
