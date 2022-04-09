@@ -38,6 +38,7 @@ const Wrapper = styled.div`
   } 
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
+
   // paddings diferentes para drinks e foods
   padding-left: ${(props) => (props.location === '/foods' ? '300px' : '380px')};
 `;
