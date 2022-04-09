@@ -18,9 +18,9 @@ export const StyledNav = styled.div`
 
 const StyledInput = styled(Input)`
   margin: 4px;
-  border-radius: 3px;
-  width: 44px;
-  height: 44px;
+  width: 42px;
+  height: 42px;
+  padding-bottom: 2px;
 `;
 
 const BottomNav = () => {
