@@ -30,6 +30,10 @@ const StyledHeader = styled.header`
   align-items: center;
   background-color:#02484B;
   padding: 10px 4px 0px 4px ;
+  justify-content: space-between;
+  padding-left: 2vw;
+  padding-right: 2vw;
+  overflow: hidden;
 
   & p {
     color: white;
