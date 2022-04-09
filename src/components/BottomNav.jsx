@@ -14,13 +14,16 @@ export const StyledNav = styled.div`
   bottom: 0;
   display: flex;
   justify-content: space-around;
+  align-items: center;
 `;
 
 const StyledInput = styled(Input)`
-  margin: 4px;
-  border-radius: 3px;
+  overflow: hidden;
+  padding: 2px;
+  margin-bottom: 2px;
   width: 44px;
   height: 44px;
+  /* padding-bottom: 2px; */
 `;
 
 const BottomNav = () => {

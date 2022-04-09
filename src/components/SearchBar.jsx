@@ -12,32 +12,28 @@ const StyledDiv = styled.div`
   width: 100vw;
   display: flex;
   flex-wrap: nowrap;
-  background-color:#02484B;
+  background-color: #078466;
   padding: 10px 4px 0px 4px ;
-  justify-content: center;
-  align-items: center;
-
-  & label {
-    color: white;
-    font-size: 18px;
-    
-  }
-
-  & button {
-    color: white;
-    background-color: orange;
-    border-radius: 5px;
-    height: 50px;
-  }
+  justify-content: flex-start;
+  border-bottom-left-radius: 7.5px;
+  border-bottom-right-radius: 7.5px;
 `;
 
 const ButtonDiv = styled.div`
   width: 20vw;
   height: 80px;
-  margin-top: 4vh;
+  margin-left: 1.2vw;
+  display: flex;
+  align-items: center;
 
   & button {
-    margin-left: 10px;
+    color: white;
+    background-color: orange;
+    border-radius: 5px;
+    height: 70px;
+    width: 70px;
+    border: none;
+
   }
 `;
 
@@ -45,13 +41,20 @@ const InputsDiv = styled.div`
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
-  width: 80vw;
+  width: 70vw;
   align-items: flex-start;
+  border-radius: 4px;
 
   & input {
-    margin-right: 5px;
-    margin-left: 5px;
+    margin-right: 1px;
+    margin-left: 1px;
   }
+
+  & label {
+    color: white;
+    font-size: 15px;
+  }
+
 `;
 
 const SEARCH_BAR_INITIAL_STATE = {
