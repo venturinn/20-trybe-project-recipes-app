@@ -40,7 +40,7 @@ const Wrapper = styled.div`
   scrollbar-width: none;  /* Firefox */
 
   // paddings diferentes para drinks e foods
-  padding-left: ${(props) => (props.location === '/foods' ? '300px' : '380px')};
+  padding-left: ${(props) => (props.location === '/foods' ? '270px' : '365px')};
 `;
 
 export default function Filters() {
