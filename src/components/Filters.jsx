@@ -7,29 +7,39 @@ import { getFiveCategories } from '../redux/actions/category';
 import { setFilterName, setRecipesByCategory } from '../redux/actions/filters';
 import { setMainPageRecipes } from '../redux/actions/mainPage';
 
+const StyledButton = styled(Button)`
+    background-color: #F0F7EE;
+    width: 40vw;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+    margin: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+`;
+
 const Wrapper = styled.div`
-  width: 100vw;
-  height: 90px;
+  height: 70px;
+  width: auto;
   display: flex;
   justify-content: space-around;
-  flex-wrap: wrap;
+  align-items: center;
+  flex-wrap: nowrap;
   background-color: #078466;
   border-bottom-left-radius: 7.5px;
   border-bottom-right-radius: 7.5px;
-;
-
-  & Button {
-    margin-top: 5px;
-    width: 31vw ;
-    height: 30px ;
-    background-color: #F0F7EE;
-    font-size: 15px;
-    border-radius: 10px;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-  }
+  white-space: nowrap;
+  overflow-x: scroll;
+  ::-webkit-scrollbar{
+    display: none;
+  } 
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+  // paddings diferentes para drinks e foods
+  padding-left: ${(props) => (props.location === '/foods' ? '300px' : '380px')};
 `;
 
 export default function Filters() {
@@ -68,14 +78,14 @@ export default function Filters() {
     <div>
       {conditionToRenderFilters
         && (
-          <Wrapper>
-            <Button
+          <Wrapper location={ pathname }>
+            <StyledButton
               label="All"
               testId="All-category-filter"
               onClick={ () => handleAllButton(pathname) }
             />
             {categoryList.map((item) => (
-              <Button
+              <StyledButton
                 key={ item }
                 label={ item }
                 testId={ `${item}-category-filter` }
