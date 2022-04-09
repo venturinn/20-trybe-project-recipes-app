@@ -29,8 +29,8 @@ const Wrapper = styled.div`
   align-items: center;
   flex-wrap: nowrap;
   background-color: #078466;
-  border-bottom-left-radius: 7.5px;
-  border-bottom-right-radius: 7.5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
   white-space: nowrap;
   overflow-x: scroll;
   ::-webkit-scrollbar{
