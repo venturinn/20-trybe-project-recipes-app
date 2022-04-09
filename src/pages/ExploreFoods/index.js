@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import BottomNav from '../../components/BottomNav';
 import { getRandomRecipe } from '../../services';
 import Header from '../../components/Header';
+import { ExploreSection, Wrapper } from '../Explore/style';
 
 export default function ExploreFoods() {
   const history = useHistory();
@@ -24,31 +25,32 @@ export default function ExploreFoods() {
   };
 
   return (
-    <section>
+    <ExploreSection>
       <Header />
-      <button
-        type="button"
-        data-testid="explore-by-ingredient"
-        onClick={ goToExploreFoodsIngredients }
-      >
-        By Ingredient
-      </button>
-      <button
-        type="button"
-        data-testid="explore-by-nationality"
-        onClick={ goToExploreFoodsNationalities }
-      >
-        By Nationality
-      </button>
-      <button
-        type="button"
-        data-testid="explore-surprise"
-        onClick={ goToExploreSurprise }
-      >
-        Surprise me!
-      </button>
-
+      <Wrapper>
+        <button
+          type="button"
+          data-testid="explore-by-ingredient"
+          onClick={ goToExploreFoodsIngredients }
+        >
+          By Ingredient
+        </button>
+        <button
+          type="button"
+          data-testid="explore-by-nationality"
+          onClick={ goToExploreFoodsNationalities }
+        >
+          By Nationality
+        </button>
+        <button
+          type="button"
+          data-testid="explore-surprise"
+          onClick={ goToExploreSurprise }
+        >
+          Surprise me!
+        </button>
+      </Wrapper>
       <BottomNav />
-    </section>
+    </ExploreSection>
   );
 }

@@ -8,49 +8,50 @@ import { requestSearchBarRecipes } from '../redux/actions';
 import { setFilterName } from '../redux/actions/filters';
 
 const StyledDiv = styled.div`
-  height: 100px;
-  width: 100vw;
   display: flex;
+  flex-direction: column;
+  height: 130px;
+  width: 100vw;
   flex-wrap: nowrap;
-  background-color:#02484B;
-  padding: 10px 4px 0px 4px ;
+  background-color: #078466;
+  padding: 10px;
   justify-content: center;
   align-items: center;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  box-shadow: 4px 4px 10px rgb(0 0 0 / 15%);
 
   & label {
     color: white;
     font-size: 18px;
-    
+    border: none;   
+  }
+
+  & input {
+    border-radius: 10px;
+    border: none;
   }
 
   & button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: white;
-    background-color: orange;
-    border-radius: 5px;
-    height: 50px;
-  }
-`;
-
-const ButtonDiv = styled.div`
-  width: 20vw;
-  height: 80px;
-  margin-top: 4vh;
-
-  & button {
-    margin-left: 10px;
+    background-color: #EF8A17;
+    border-radius: 7px;
+    height: 20px;
+    padding: 16px 20px;
+    border: none;
   }
 `;
 
 const InputsDiv = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   flex-wrap: wrap;
-  width: 80vw;
-  align-items: flex-start;
 
   & input {
-    margin-right: 5px;
-    margin-left: 5px;
+    margin: 0 5px;
   }
 `;
 
@@ -112,13 +113,11 @@ function SearchBar({ currentRoute }) {
           onChange={ ({ target }) => handleSearchBarOnChange(target) }
         />
       </InputsDiv>
-      <ButtonDiv>
-        <Button
-          label="Search"
-          testId="exec-search-btn"
-          onClick={ () => handleSearchBarButtonOnClick() }
-        />
-      </ButtonDiv>
+      <Button
+        label="Search"
+        testId="exec-search-btn"
+        onClick={ () => handleSearchBarButtonOnClick() }
+      />
     </StyledDiv>
   );
 }

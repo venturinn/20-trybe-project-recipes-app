@@ -3,11 +3,11 @@ import { useHistory } from 'react-router-dom';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { SiCodechef } from 'react-icons/si';
+import { ImSearch } from 'react-icons/im';
 import { setSearchBarVisibility } from '../redux/actions';
-import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
-import Input from './Input';
+import { IconsStyle } from './BottomNav';
 
 const TITLE_BY_ROUTE = {
   '/foods': 'Foods',
@@ -23,21 +23,38 @@ const TITLE_BY_ROUTE = {
   '/favorite-recipes': 'Favorite Recipes',
 };
 
+const Profile = styled(SiCodechef)`
+  ${IconsStyle}
+  margin: 0px 4px 10px;
+`;
+const Search = styled(ImSearch)`
+  ${IconsStyle}
+  width: 30px;
+  margin: 0px 4px 10px;
+`;
+
 const StyledHeader = styled.header`
-  height: 43.5px;
+  height: 65px;
   width: 100vw;
   display: flex;
+  position: relative;
   align-items: center;
-  background-color:#02484B;
+  background-color:#f0f7ee;
+  justify-content: space-between;
   padding: 10px 4px 0px 4px ;
+  box-shadow: 4px 4px 10px rgb(0 0 0 / 15%);
 
   & p {
-    color: white;
+    color: #02484b;
+    font-weight: bold;
     font-size: 26px;
     position: absolute;
-    top: 5px;
-    left: 40vw;
-    
+    white-space: nowrap;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    margin-bottom: 0;
   }
 `;
 
@@ -61,22 +78,16 @@ function Header() {
   return (
     <section>
       <StyledHeader className="main-header">
-        <Input
-          src={ profileIcon }
-          alt="profile-icon"
-          testId="profile-top-btn"
-          type="image"
+        <Profile
+          data-testid="profile-top-btn"
           onClick={ () => history.push('/profile') }
         />
         <p data-testid="page-title">
           { title }
         </p>
         {showSearchOption && (
-          <Input
-            type="image"
-            src={ searchIcon }
-            alt="search-icon"
-            testId="search-top-btn"
+          <Search
+            data-testid="search-top-btn"
             onClick={ () => handleSearchBarVisibility(searchBarIsVisible) }
           />
         )}

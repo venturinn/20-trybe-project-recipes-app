@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { getRecipesByIngredients } from '../services/filters';
 import { getFoodIngredients } from '../services';
 import { setSearchBarResults } from '../redux/actions';
+import IngredientCard from '../pages/ExploreFoodsIngredients/style';
 
 export default function CardFoodIngredients() {
   const [arrayIngredients, setArrayIngredients] = useState([]);
@@ -28,7 +29,7 @@ export default function CardFoodIngredients() {
   const TWELVE = 12;
 
   return (
-    <div>
+    <IngredientCard>
       { arrayIngredients.slice(0, TWELVE)
         .map(({ idIngredient, strIngredient }, indx) => (
           <Link
@@ -40,7 +41,6 @@ export default function CardFoodIngredients() {
             <div
               data-testid={ `${indx}-ingredient-card` }
             >
-
               <img
                 src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
                 alt={ strIngredient }
@@ -50,6 +50,6 @@ export default function CardFoodIngredients() {
             </div>
           </Link>
         ))}
-    </div>
+    </IngredientCard>
   );
 }
