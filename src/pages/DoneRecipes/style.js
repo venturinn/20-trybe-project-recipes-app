@@ -81,7 +81,6 @@ export const FiltersDiv = styled.div`
   justify-content: space-evenly;
   flex-wrap: wrap;
   padding: 30px 0;
-  margin: 20px 0;
   border-radius: 0 0 10px 10px;
   background-color: #078466;
   box-shadow: 0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.34),
