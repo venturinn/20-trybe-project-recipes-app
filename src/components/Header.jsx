@@ -25,8 +25,10 @@ const TITLE_BY_ROUTE = {
 
 const Profile = styled(SiCodechef)`
   ${IconsStyle}
+  color: ${(props) => props.theme.color};
   margin: 0px 4px 10px;
 `;
+
 const Search = styled(ImSearch)`
   ${IconsStyle}
   width: 30px;
@@ -79,6 +81,7 @@ function Header() {
     <section>
       <StyledHeader className="main-header">
         <Profile
+          theme={ { color: title === 'Profile' ? '#ef8a17' : '#02484b' } }
           data-testid="profile-top-btn"
           onClick={ () => history.push('/profile') }
         />
