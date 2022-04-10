@@ -11,6 +11,7 @@ import { Ingredients, Instructions,
   MainContainer, Image, Title, Category,
   LinkCopied, Video, Title2, Recommended, ButtonStart,
   ButtonContainer, ShareContainer, FavoriteContainer } from './styled';
+import GoBack from '../../components/GoBack';
 
 export default function RecipeDetails() {
   const [foodAndDrinkPairing, setFoodAndDrinkPairing] = useState(false);
@@ -91,6 +92,7 @@ export default function RecipeDetails() {
     <MainContainer>
       {details && details.length !== 0 && (
         <div>
+          <GoBack onClick={ history.goBack } />
           <Image
             data-testid="recipe-photo"
             alt="Recipe illustration"
