@@ -1,24 +1,21 @@
 import styled from 'styled-components';
 import ShareButton from '../../components/ShareButton';
 
-export const MyShareButton = styled(ShareButton)`
-  position: absolute;
-  top: 10px;
-  right: 15px;
-`;
+export const MyShareButton = styled(ShareButton)``;
 
-export const InteractDivs = styled.span`
-  position: absolute;
-  top: 10px;
-  right: 10px;
+export const InteractDivs = styled.div`
+  display: flex;
+  align-self: flex-end;
 
-  & label {
-    margin: 0px 5px;
+  & > label {
+    padding: 0;
+    margin: 2px 5px;
   }
 `;
 
 export const Wrapper = styled.div`
   display: flex;
+  padding-bottom: 20px;
   justify-content: center;
   flex-wrap: wrap;
 `;
@@ -31,6 +28,7 @@ export const RecipeCard = styled.div`
   width: 330px;
   height: 200px;
   margin: 20px 0;
+  flex-wrap: wrap;
   border-radius: 8px;
   background-color: #FFF;
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
@@ -42,24 +40,35 @@ export const RecipeCard = styled.div`
   margin: 0 5px;
 }
 
-  & div {
+  & > div {
+    width: 50%;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    width: 180px;
-    height: 130px;
-    padding: 15px 0;
   }
 
   & p {
     color: #2a3641;
     margin: 2px 5px;
     text-align: center;
+    overflow-wrap: break-word;  
+  }
+  
+  & .tags-container {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    padding-top: 10px;
+    margin: 0;
+    flex-wrap: nowrap;
+    width: fit-content;
+    max-width: 100%;
   }
 
   & .recipe-tags {
-    margin: 10px 5px;
+    margin: 0px 5px;
     border-radius: 90px;
     padding: 2.5px 10px;
     text-align: center;
@@ -79,9 +88,10 @@ export const FiltersDiv = styled.div`
   --shadow-color: 166deg 100% 14%;
   display: flex;
   justify-content: space-evenly;
+  top: 0;
   flex-wrap: wrap;
   padding: 30px 0;
-  margin: 20px 0;
+  margin-bottom: 20px;
   border-radius: 0 0 10px 10px;
   background-color: #078466;
   box-shadow: 0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.34),

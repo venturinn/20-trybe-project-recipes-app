@@ -9,7 +9,7 @@ import ShareButton from '../../components/ShareButton';
 import FavoriteButton from '../../components/FavoriteButton';
 import { Ingredients, Instructions,
   MainContainer, Image, Title, Category,
-  LinkCopied, Video, Title2, Recommended, ButtonStart,
+  LinkCopied, Title2, Recommended, ButtonStart,
   ButtonContainer, ShareContainer, FavoriteContainer } from './styled';
 
 export default function RecipeDetails() {
@@ -130,12 +130,18 @@ export default function RecipeDetails() {
             <p data-testid="instructions">{details.strInstructions}</p>
           </Instructions>
           {currRoute === 'foods' && (
-            <Video>
-              <video data-testid="video" width="200" height="150">
-                <source src={ details.strYoutube } />
-                <track kind="captions" srcLang="en" label="english_captions" />
-              </video>
-            </Video>
+            <div>
+              <iframe
+                title="video"
+                data-testid="video"
+                width="300px"
+                height="250px"
+                src={ `https://www.youtube.com/embed/${details.strYoutube.split('=')[1]}` }
+                frameBorder="0"
+                allow="autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
           )}
           <Recommended>
             <Title2>Recommended</Title2>

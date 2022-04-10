@@ -5,14 +5,13 @@ import { useDispatch } from 'react-redux';
 import Input from './Input';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import { removeRecipeFromFavoriteRecipes } from '../redux/actions';
-import ShareButton from './ShareButton';
-import { RecipeCard, InteractDivs } from '../pages/DoneRecipes/style';
+import { RecipeCard, InteractDivs, MyShareButton } from '../pages/DoneRecipes/style';
 
 export default function FavoriteRecipeCard({ recipe, index }) {
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   const recipeCategory = useRef(recipe.alcoholicOrNot === ''
-    ? `${recipe.nationality}/${recipe.category}`
-    : `${recipe.category}/${recipe.alcoholicOrNot}`);
+    ? `${recipe.nationality} | ${recipe.category}`
+    : `${recipe.category} | ${recipe.alcoholicOrNot}`);
   const dispatch = useDispatch();
 
   const handleFavoriteButtonOnClick = (id) => {
@@ -28,24 +27,24 @@ export default function FavoriteRecipeCard({ recipe, index }) {
           data-testid={ `${index}-horizontal-image` }
         />
       </Link>
-      <InteractDivs>
-        <Input
-          type="image"
-          src={ blackHeartIcon }
-          alt={ recipe.name }
-          testId={ `${index}-horizontal-favorite-btn` }
-          onClick={ () => handleFavoriteButtonOnClick(recipe.id) }
-        />
-        <ShareButton
-          setIsLinkCopied={ setIsLinkCopied }
-          testId={ `${index}-horizontal-share-btn` }
-          type={ recipe.type }
-          id={ recipe.id }
-        />
-        {isLinkCopied && (
-          <p>Link copied!</p>)}
-      </InteractDivs>
       <div>
+        <InteractDivs>
+          <Input
+            type="image"
+            src={ blackHeartIcon }
+            alt={ recipe.name }
+            testId={ `${index}-horizontal-favorite-btn` }
+            onClick={ () => handleFavoriteButtonOnClick(recipe.id) }
+          />
+          <MyShareButton
+            setIsLinkCopied={ setIsLinkCopied }
+            testId={ `${index}-horizontal-share-btn` }
+            type={ recipe.type }
+            id={ recipe.id }
+          />
+          {isLinkCopied && (
+            <p>Link copied!</p>)}
+        </InteractDivs>
         <Link to={ `/${recipe.type}s/${recipe.id}` }>
           <p data-testid={ `${index}-horizontal-name` }><strong>{recipe.name}</strong></p>
         </Link>
