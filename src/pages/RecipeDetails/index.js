@@ -133,10 +133,16 @@ export default function RecipeDetails() {
           </Instructions>
           {currRoute === 'foods' && (
             <Video>
-              <video data-testid="video" width="200" height="150">
-                <source src={ details.strYoutube } />
-                <track kind="captions" srcLang="en" label="english_captions" />
-              </video>
+              <iframe
+                title="video"
+                data-testid="video"
+                width="300px"
+                height="250px"
+                src={ `https://www.youtube.com/embed/${details.strYoutube.split('=')[1]}` }
+                frameBorder="0"
+                allow="autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
             </Video>
           )}
           <Recommended>
