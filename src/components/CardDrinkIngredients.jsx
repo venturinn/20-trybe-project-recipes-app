@@ -5,6 +5,7 @@ import { getRecipesByIngredients } from '../services/filters';
 import { getDrinkIngredients } from '../services';
 import { setSearchBarResults } from '../redux/actions';
 import IngredientCard from '../pages/ExploreFoodsIngredients/style';
+import Loading from './Loading';
 
 export default function CardDrinkIngredients() {
   const [arrayIngredients, setArrayIngredients] = useState([]);
@@ -30,6 +31,7 @@ export default function CardDrinkIngredients() {
 
   return (
     <IngredientCard>
+      {arrayIngredients.length === 0 && <Loading />}
       { arrayIngredients.slice(0, DOZE)
         .map((ingr, indx) => (
           <Link
