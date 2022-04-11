@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
+import { LoginContainer } from './Style';
 
 function Login() {
   const [email, setEmail] = useState('');
@@ -53,36 +54,38 @@ function Login() {
   };
 
   return (
-    <div>
-      {redirect && <Redirect to="/foods" />}
-      <p>Login</p>
-      <Input
-        testId="email-input"
-        label="Email"
-        type="email"
-        id="email"
-        name="email"
-        value={ email }
-        onChange={ handleChange }
-      />
-      <br />
-      <Input
-        testId="password-input"
-        label="Password"
-        type="password"
-        id="password"
-        name="password"
-        value={ password }
-        onChange={ handleChange }
-      />
-      <br />
-      <Button
-        testId="login-submit-btn"
-        label="Enter"
-        disabled={ buttonDisabled }
-        onClick={ buttonClick }
-      />
-    </div>
+    <LoginContainer>
+      <div>
+        {redirect && <Redirect to="/foods" />}
+        <p>Login</p>
+        <Input
+          testId="email-input"
+          label="Email"
+          type="email"
+          id="email"
+          name="email"
+          value={ email }
+          onChange={ handleChange }
+        />
+        <br />
+        <Input
+          testId="password-input"
+          label="Password"
+          type="password"
+          id="password"
+          name="password"
+          value={ password }
+          onChange={ handleChange }
+        />
+        <br />
+        <Button
+          testId="login-submit-btn"
+          label="Enter"
+          disabled={ buttonDisabled }
+          onClick={ buttonClick }
+        />
+      </div>
+    </LoginContainer>
   );
 }
 
