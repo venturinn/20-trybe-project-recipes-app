@@ -10,6 +10,7 @@ import {
   getFavoriteRecipesFromLocalStorage,
   removeRecipeFromLocalStorageFavoriteRecipes,
 } from '../../services/localStorage';
+import { setLoading } from './loading';
 
 const JUST_ONE_CHARACTER = 'Your search must have only 1 (one) character';
 const NO_RECIPES_FOUND = 'Sorry, we haven\'t found any recipes for these filters.';
@@ -28,6 +29,7 @@ const getRecipesByRouteFromAPI = async ({ value, type }, currRoute) => {
   return recipes;
 };
 export const requestSearchBarRecipes = (search, currRoute) => async (dispatch) => {
+  dispatch(setLoading(true));
   const { value, type } = search;
   if (type === 'firstLetter' && value.length > 1) return global.alert(JUST_ONE_CHARACTER);
   const recipesList = await getRecipesByRouteFromAPI(search, currRoute);
@@ -36,11 +38,13 @@ export const requestSearchBarRecipes = (search, currRoute) => async (dispatch) =
     const { meals } = recipesList;
     if (meals === null || meals === undefined) return global.alert(NO_RECIPES_FOUND);
     dispatch(setSearchBarResults(recipesList));
+    dispatch(setLoading(false));
   }
   if (currRoute === '/drinks') {
     const { drinks } = recipesList;
     if (drinks === null || drinks === undefined) return global.alert(NO_RECIPES_FOUND);
     dispatch(setSearchBarResults(recipesList));
+    dispatch(setLoading(false));
   }
 };
 
@@ -51,15 +55,18 @@ const setTreatedRecipeDetailsList = (payload) => ({
 });
 
 export const getRecipesDetailsThunk = (id, currRoute) => async (dispatch) => {
+  dispatch(setLoading(true));
   const recipeDetails = await getRecipeDetailsById(id, currRoute);
   if (currRoute === '/foods') {
     const { meals } = recipeDetails;
     const treatedRecipeDetailsList = cleanAndTreatObjectByIDFromAPI(meals[0]);
     dispatch(setTreatedRecipeDetailsList(treatedRecipeDetailsList));
+    dispatch(setLoading(false));
   } if (currRoute === '/drinks') {
     const { drinks } = recipeDetails;
     const treatedRecipeDetailsList = cleanAndTreatObjectByIDFromAPI(drinks[0]);
     dispatch(setTreatedRecipeDetailsList(treatedRecipeDetailsList));
+    dispatch(setLoading(false));
   }
 };
 
