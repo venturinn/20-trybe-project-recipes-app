@@ -1,13 +1,13 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { RecipeCard, MyShareButton } from '../pages/DoneRecipes/style';
+import { RecipeCard, MyShareButton, InteractDivs } from '../pages/DoneRecipes/style';
 
 export default function DoneRecipeCard(props) {
   const { recipe, index } = props;
   const recipeCategory = useRef(recipe.alcoholicOrNot === ''
-    ? `${recipe.nationality}/${recipe.category}`
-    : `${recipe.category}/${recipe.alcoholicOrNot}`);
+    ? `${recipe.nationality} | ${recipe.category}`
+    : `${recipe.category} | ${recipe.alcoholicOrNot}`);
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   const [filledDate] = useState(() => {
     if (typeof recipe.doneDate === 'number') {
@@ -28,14 +28,16 @@ export default function DoneRecipeCard(props) {
           data-testid={ `${index}-horizontal-image` }
         />
       </Link>
-      <MyShareButton
-        setIsLinkCopied={ setIsLinkCopied }
-        testId={ `${index}-horizontal-share-btn` }
-        type={ recipe.type }
-        id={ recipe.id }
-      />
-      {isLinkCopied && <p>Link copied!</p>}
       <div>
+        <InteractDivs>
+          <MyShareButton
+            setIsLinkCopied={ setIsLinkCopied }
+            testId={ `${index}-horizontal-share-btn` }
+            type={ recipe.type }
+            id={ recipe.id }
+          />
+          {isLinkCopied && <p>Link copied!</p>}
+        </InteractDivs>
         <Link to={ `/${recipe.type}s/${recipe.id}` }>
           <p data-testid={ `${index}-horizontal-name` }><strong>{recipe.name}</strong></p>
         </Link>
@@ -43,14 +45,16 @@ export default function DoneRecipeCard(props) {
           { recipeCategory.current }
         </p>
         <p data-testid={ `${index}-horizontal-done-date` }>{`Done in: ${filledDate}`}</p>
-        {recipe.tags.map((tag) => (
-          <span
-            key={ tag }
-            className="recipe-tags"
-            data-testid={ `${index}-${tag}-horizontal-tag` }
-          >
-            { tag }
-          </span>))}
+        <div className="tags-container">
+          {recipe.tags.map((tag) => (
+            <span
+              key={ tag }
+              className="recipe-tags"
+              data-testid={ `${index}-${tag}-horizontal-tag` }
+            >
+              { tag }
+            </span>))}
+        </div>
       </div>
     </RecipeCard>
   );
