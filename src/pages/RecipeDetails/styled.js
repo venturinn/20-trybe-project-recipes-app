@@ -2,9 +2,9 @@ import styled from 'styled-components';
 import Button from '../../components/Button';
 
 export const ButtonStart = styled(Button)`
-
 background-color: #078466;
 border-radius: 10px;
+border: none;
 color: white;
 font-size: 20px;
 width: 300px;
@@ -57,6 +57,7 @@ text-align: justify;
 
 export const MainContainer = styled.div`
 background-color: #F0F7EE;
+overflow-x: hidden;
 `;
 
 export const Image = styled.img`

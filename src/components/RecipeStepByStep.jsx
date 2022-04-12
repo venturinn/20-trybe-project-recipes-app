@@ -80,6 +80,7 @@ margin-right: auto;
 const ButtonFinish = styled.button`
 background-color: #078466;
 border-radius: 10px;
+border: none;
 color: white;
 font-size: 20px;
 width: 300px;

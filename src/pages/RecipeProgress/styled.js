@@ -15,6 +15,7 @@ top:-660px;
 
 export const MainContainer = styled.div`
 background-color:#F0F7EE;
+overflow-x: hidden;
 `;
 
 export const LinkCopied = styled.div`

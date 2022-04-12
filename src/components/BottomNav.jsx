@@ -22,6 +22,7 @@ export const IconsStyle = `
   color: #02484b;
   width: 44px;
   height: 44px;
+  /* padding-bottom: 2px; */
 `;
 
 const Cocktail = styled(FaCocktail)`

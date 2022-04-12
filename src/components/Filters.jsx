@@ -19,27 +19,26 @@ const Wrapper = styled.div`
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   box-shadow: 4px 4px 10px rgb(0 0 0 / 15%);
-  ;
-  `;
+`;
 
 const FilterButton = styled(Button)`
-    --shadow-color: 166deg 100% 14%;
-    width: fit-content;
-    white-space: nowrap;
-    height: 33px ;
-    background-color: ${(props) => props.theme.bg};
-    color: ${({ theme: { bg } }) => (bg === '#ef8a17' ? '#fff' : '#2a3641')};
-    font-size: 15px;
-    border-radius: 12px;
-    margin: 0 5px;
-    border: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0 30px;
-    box-shadow: 0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.34),
-    0.4px 0.8px 1px -1.2px hsl(var(--shadow-color) / 0.34),
-    1px 2px 2.5px -2.5px hsl(var(--shadow-color) / 0.34);
+  --shadow-color: 166deg 100% 14%;
+  width: fit-content;
+  white-space: nowrap;
+  height: 33px ;
+  background-color: ${(props) => props.theme.bg};
+  color: ${({ theme: { bg } }) => (bg === '#ef8a17' ? '#fff' : '#2a3641')};
+  font-size: 15px;
+  border-radius: 12px;
+  margin: 0 5px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 30px;
+  box-shadow: 0.3px 0.5px 0.7px hsl(var(--shadow-color) / 0.34),
+  0.4px 0.8px 1px -1.2px hsl(var(--shadow-color) / 0.34),
+  1px 2px 2.5px -2.5px hsl(var(--shadow-color) / 0.34);
 `;
 
 export default function Filters() {
@@ -82,8 +81,8 @@ export default function Filters() {
           <Wrapper>
             <FilterButton
               theme={ { bg: filter === '' ? '#ef8a17' : '#f0f7ee' } }
-              label="All"
               testId="All-category-filter"
+              label="All"
               onClick={ () => handleAllButton(pathname) }
             />
             {categoryList.map((item) => (
