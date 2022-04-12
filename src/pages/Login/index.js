@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router';
+import LogoImg from '../../images/logo.svg';
+import MainBackground from '../../images/bg-one.svg';
+import FormBackground from '../../images/bg-two.svg';
 import {
   LoginContainer,
   OpacityContainer,
   MainPage,
-  Title,
+  Logo,
+  ChefHat,
   Form,
   LoginInput,
   LoginButton,
@@ -68,13 +72,14 @@ function Login() {
   };
 
   return (
-    <LoginContainer>
+    <LoginContainer theme={ { bg: startUserSession ? FormBackground : MainBackground } }>
       {redirect && <Redirect to="/foods" />}
       <OpacityContainer>
         { !startUserSession ? (
           <MainPage>
             <TitleContainer>
-              <Title>Foods App</Title>
+              <ChefHat />
+              <Logo src={ LogoImg } />
             </TitleContainer>
             <StartSessionButton
               label="Start Session"
@@ -84,7 +89,7 @@ function Login() {
           </MainPage>
         ) : (
           <Form>
-            <LoginTitle>Foods App</LoginTitle>
+            <LoginTitle>Welcome back!</LoginTitle>
             <LoginInput
               testId="email-input"
               placeholder="Email"

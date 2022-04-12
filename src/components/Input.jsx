@@ -21,6 +21,7 @@ function Input(props) {
       <input
         className={ className }
         id={ id }
+        autoComplete="off"
         type={ type }
         placeholder={ placeholder }
         name={ name }

@@ -1,10 +1,10 @@
 import styled from 'styled-components';
+import { SiCodechef } from 'react-icons/si';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
-import BackgroundLogin from '../../images/BackgroundLogin.jpg';
 
 export const LoginContainer = styled.section`
-  background-image: url(${BackgroundLogin});
+  background-image: url(${((props) => props.theme.bg)});
   background-size: 430px 640px;
   background-position: center;
   background-repeat: no-repeat;
@@ -14,32 +14,45 @@ export const LoginContainer = styled.section`
 export const OpacityContainer = styled.div`
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3) ;
   padding: 40px;
 `;
 
 export const TitleContainer = styled.div`
   display: flex;
+  flex-direction: column;
+  padding-top: 60px;
   align-items: center;
+  justify-content: center;
   flex: 1;
 `;
 
-export const Title = styled.h1`
-  color: #FFF;
-  font-weight: bold;
-  letter-spacing: 1px;
-  margin: 0;
-  text-align: center;
+export const Logo = styled.img`
+  width: 200px;
+  height: 200px;
+  margin-top: -25px;
+  filter: drop-shadow(0px 0px 7px rgb(0 0 0 / 0.2));
+
+`;
+
+export const ChefHat = styled(SiCodechef)`
+  color:#EF8A17;
+  width: 130px;
+  height: 130px;
+  margin-left: 4px;
+  filter: drop-shadow(0px 0px 7px rgb(0 0 0 / 0.3));
 `;
 
 export const StartSessionButton = styled(Button)`
   background-color: #EF8A17;
   border: none;
-  color: #000;
+  color: #fff;
   width: 280px;
   padding: 15px 20px;
   border-radius: 7px;
   font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 `;
 
 export const MainPage = styled.div`
@@ -49,6 +62,7 @@ export const MainPage = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
+  padding: 20px 0;
 `;
 
 export const Form = styled.form`
@@ -62,7 +76,7 @@ export const Form = styled.form`
 `;
 
 export const LoginTitle = styled.h3`
-  color: #FFF;
+  color: #EF8A17;
   font-weight: bold;
   letter-spacing: 1px;
   margin-bottom: 35px;
@@ -70,6 +84,7 @@ export const LoginTitle = styled.h3`
 `;
 
 export const LoginInput = styled(Input)`
+  
   & input {
     background-color: #FFF;
     border: none;
@@ -93,7 +108,8 @@ export const LoginButton = styled(Button)`
   border-radius: 7px;
   padding: 5px 15px;
   font-size: 17px;
-  font-weight: bold;
+  font-weight: 600;
   height: 40px;
   letter-spacing: 0.5px;
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.2);
 `;
