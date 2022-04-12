@@ -23,9 +23,9 @@ function RecipesList() {
 
   const shouldRedirect = mainPageFilter === '';
   if (recipesList.length === 1 && shouldRedirect) {
-    const route = listToRender[0].idMeal
-      ? `/foods/${listToRender[0].idMeal}`
-      : `/drinks/${listToRender[0].idDrink}`;
+    const route = recipesList[0].idMeal
+      ? `/foods/${recipesList[0].idMeal}`
+      : `/drinks/${recipesList[0].idDrink}`;
     return (<Redirect push to={ route } />);
   }
 
