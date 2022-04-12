@@ -4,6 +4,7 @@ export const RecipesListSection = styled.section`
   background-color: #f0f7ee;
   padding-bottom: 73.5px;
   padding-top: 18px;
+  min-height: 500px;
 `;
 
 export const Card = styled.div`

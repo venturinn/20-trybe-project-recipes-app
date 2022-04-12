@@ -8,9 +8,7 @@ import { setFilterName, setRecipesByCategory } from '../redux/actions/filters';
 import { setMainPageRecipes } from '../redux/actions/mainPage';
 
 const Wrapper = styled.div`
-  --shadow-color: 166deg 100% 14%;
   display: flex;
-  min-width: 100vw;
   flex-direction: row;
   flex-wrap: nowrap;
   align-items: center;
@@ -22,9 +20,10 @@ const Wrapper = styled.div`
   border-bottom-right-radius: 12px;
   box-shadow: 4px 4px 10px rgb(0 0 0 / 15%);
   ;
-`;
+  `;
 
 const FilterButton = styled(Button)`
+    --shadow-color: 166deg 100% 14%;
     width: fit-content;
     white-space: nowrap;
     height: 33px ;

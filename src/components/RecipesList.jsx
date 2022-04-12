@@ -18,16 +18,17 @@ function RecipesList() {
         ? recipesResults.meals : recipesResults.drinks;
       const cardLimit = 11;
       const listToRender = recipes.filter((_item, index) => index <= cardLimit);
-      const shouldRedirect = mainPageFilter === '';
-      if (listToRender.length === 1 && shouldRedirect) {
-        const route = listToRender[0].idMeal
-          ? `/foods/${listToRender[0].idMeal}`
-          : `/drinks/${listToRender[0].idDrink}`;
-        return (<Redirect push to={ route } />);
-      }
       setRecipesList(listToRender);
     }
   }, [recipesResults]);
+
+  const shouldRedirect = mainPageFilter === '';
+  if (recipesList.length === 1 && shouldRedirect) {
+    const route = listToRender[0].idMeal
+      ? `/foods/${listToRender[0].idMeal}`
+      : `/drinks/${listToRender[0].idDrink}`;
+    return (<Redirect push to={ route } />);
+  }
 
   return (
     <RecipesListSection>

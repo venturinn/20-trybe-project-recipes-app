@@ -12,6 +12,7 @@ function Input(props) {
     onChange,
     onClick,
     src,
+    placeholder,
   } = props;
 
   return (
@@ -21,6 +22,7 @@ function Input(props) {
         className={ className }
         id={ id }
         type={ type }
+        placeholder={ placeholder }
         name={ name }
         value={ value || '' }
         data-testid={ testId }
@@ -34,6 +36,7 @@ function Input(props) {
 
 Input.propTypes = {
   label: PropTypes.string,
+  placeholder: PropTypes.string,
   testId: PropTypes.string,
   id: PropTypes.string,
   name: PropTypes.string,
@@ -56,6 +59,7 @@ Input.defaultProps = {
   src: null,
   value: '',
   className: null,
+  placeholder: null,
 };
 
 export default Input;

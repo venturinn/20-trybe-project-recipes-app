@@ -9,7 +9,6 @@ color: white;
 font-size: 20px;
 width: 300px;
 padding: 10px 70px 10px 70px;
-border: none;
 `;
 
 export const ShareContainer = styled.div`

@@ -9,8 +9,9 @@ import ShareButton from '../../components/ShareButton';
 import FavoriteButton from '../../components/FavoriteButton';
 import { Ingredients, Instructions,
   MainContainer, Image, Title, Category,
-  LinkCopied, Title2, Recommended, ButtonStart,
+  LinkCopied, Video, Title2, Recommended, ButtonStart,
   ButtonContainer, ShareContainer, FavoriteContainer } from './styled';
+import GoBack from '../../components/GoBack';
 
 export default function RecipeDetails() {
   const [foodAndDrinkPairing, setFoodAndDrinkPairing] = useState(false);
@@ -91,6 +92,7 @@ export default function RecipeDetails() {
     <MainContainer>
       {details && details.length !== 0 && (
         <div>
+          <GoBack onClick={ history.goBack } />
           <Image
             data-testid="recipe-photo"
             alt="Recipe illustration"
@@ -130,7 +132,7 @@ export default function RecipeDetails() {
             <p data-testid="instructions">{details.strInstructions}</p>
           </Instructions>
           {currRoute === 'foods' && (
-            <div>
+            <Video>
               <iframe
                 title="video"
                 data-testid="video"
@@ -141,7 +143,7 @@ export default function RecipeDetails() {
                 allow="autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               />
-            </div>
+            </Video>
           )}
           <Recommended>
             <Title2>Recommended</Title2>
