@@ -5,13 +5,11 @@ import { Redirect } from 'react-router-dom';
 import MainPageCard from './MainPageCard';
 import { Wrapper } from '../pages/DoneRecipes/style';
 import { RecipesListSection } from '../pages/Foods/style';
-import Loading from './Loading';
 
 function RecipesList() {
   const [recipesList, setRecipesList] = useState([]);
   const recipesResults = useSelector((state) => state.searchResults.searchBar);
   const mainPageFilter = useSelector((state) => state.filter.mainPage);
-  // const isLoading = useSelector((state) => state.loading);
 
   useEffect(() => {
     if (Object.keys(recipesResults).length === 1) {
@@ -33,7 +31,6 @@ function RecipesList() {
 
   return (
     <RecipesListSection>
-      {Object.keys(recipesResults).length === 0 && <Loading />}
       <Wrapper>
         {recipesList.map((recipe, index) => (
           <MainPageCard

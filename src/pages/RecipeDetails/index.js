@@ -12,7 +12,7 @@ import { Ingredients, Instructions,
   LinkCopied, Video, Title2, Recommended, ButtonStart,
   ButtonContainer, ShareContainer, FavoriteContainer } from './styled';
 import GoBack from '../../components/GoBack';
-import Loading from '../../components/Loading';
+import LoadingDetails from '../../components/LoadingDetails';
 
 export default function RecipeDetails() {
   const [foodAndDrinkPairing, setFoodAndDrinkPairing] = useState(false);
@@ -92,7 +92,7 @@ export default function RecipeDetails() {
 
   return (
     <MainContainer>
-      {isLoading && <Loading />}
+      {isLoading && <LoadingDetails />}
       {details && details.length !== 0 && (
         <div>
           <GoBack onClick={ history.goBack } />
