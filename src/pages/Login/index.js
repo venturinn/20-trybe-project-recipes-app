@@ -16,6 +16,8 @@ import {
   StartSessionButton,
   TitleContainer,
   LoginTitle,
+  FormLogo,
+  FormChef,
 } from './Style';
 
 function Login() {
@@ -89,6 +91,10 @@ function Login() {
           </MainPage>
         ) : (
           <Form>
+            {/* <TitleContainer> */}
+            <FormChef />
+            <FormLogo src={ LogoImg } />
+            {/* </TitleContainer> */}
             <LoginTitle>Welcome back!</LoginTitle>
             <LoginInput
               testId="email-input"

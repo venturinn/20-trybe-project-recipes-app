@@ -31,13 +31,29 @@ export const Logo = styled.img`
   height: 200px;
   margin-top: -25px;
   filter: drop-shadow(0px 0px 7px rgb(0 0 0 / 0.2));
-
 `;
 
 export const ChefHat = styled(SiCodechef)`
   color:#EF8A17;
   width: 130px;
   height: 130px;
+  margin-left: 4px;
+  filter: drop-shadow(0px 0px 7px rgb(0 0 0 / 0.3));
+`;
+
+export const FormLogo = styled.img`
+  width: 100px;
+  height: 100px;
+  margin-top: -8px;
+  align-self: center;
+  filter: drop-shadow(0px 0px 7px rgb(0 0 0 / 0.2));
+`;
+
+export const FormChef = styled(SiCodechef)`
+  color:#EF8A17;
+  width: 90px;
+  align-self: center;
+  height: 90px;
   margin-left: 4px;
   filter: drop-shadow(0px 0px 7px rgb(0 0 0 / 0.3));
 `;
@@ -75,11 +91,11 @@ export const Form = styled.form`
   flex-direction: column;
 `;
 
-export const LoginTitle = styled.h3`
+export const LoginTitle = styled.h5`
   color: #EF8A17;
   font-weight: bold;
   letter-spacing: 1px;
-  margin-bottom: 35px;
+  margin-bottom: 9px;
   text-align: center;
 `;
 
