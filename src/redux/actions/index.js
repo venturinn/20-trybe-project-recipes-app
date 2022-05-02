@@ -84,7 +84,6 @@ const setFavoriteRecipesList = (payload) => ({
 });
 
 export const showAllDoneOrFavoriteRecipes = (tag) => (dispatch) => {
-  console.log('tag:', tag);
   if (tag === 'doneRecipes') {
     dispatch(setDoneRecipesList(getDoneRecipesFromLocalStorage()));
   } if (tag === 'favoriteRecipes') {
@@ -93,7 +92,6 @@ export const showAllDoneOrFavoriteRecipes = (tag) => (dispatch) => {
 };
 
 const filterByDoneOrFavoriteFoodRecipes = (tag) => (dispatch) => {
-  console.log('tag:', tag);
   if (tag === 'doneRecipes') {
     dispatch(setDoneRecipesList(getDoneRecipesFromLocalStorage('food')));
   } if (tag === 'favoriteRecipes') {
@@ -102,11 +100,9 @@ const filterByDoneOrFavoriteFoodRecipes = (tag) => (dispatch) => {
 };
 
 const filterByDoneOrFavoriteDrinkRecipes = (tag) => (dispatch) => {
-  console.log('tag:', tag);
   if (tag === 'doneRecipes') {
     dispatch(setDoneRecipesList(getDoneRecipesFromLocalStorage('drink')));
   } else {
-    console.log('luana');
     dispatch(setFavoriteRecipesList(getFavoriteRecipesFromLocalStorage('drink')));
   }
 };

@@ -11,7 +11,6 @@ export default function DoneRecipeCard(props) {
   const [isLinkCopied, setIsLinkCopied] = useState(false);
   const [filledDate] = useState(() => {
     if (typeof recipe.doneDate === 'number') {
-      console.log('date:', new Date(recipe.doneDate).toLocaleDateString());
       const toLocaleString = new Date(recipe.doneDate).toLocaleDateString().split(',')[0];
       const date = toLocaleString.split('/').map((str) => str.padStart(2, '0')).join('/');
       return date;

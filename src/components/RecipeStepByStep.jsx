@@ -150,26 +150,23 @@ export default function RecipeStepByStep(props) {
       <Ingredients>
         <Title2>Ingredients</Title2>
         {Object.keys(checkboxesState).length > 0
-      && recipeDetails.ingredientsAndMeasures.map(({ ingredient, measure }, index) => {
-        console.log(checkboxesState[ingredient] || false);
-        return (
-          <div key={ index }>
-            <label
-              htmlFor={ `${index}` }
-              data-testid={ `${index}-ingredient-step` }
-            >
-              <input
-                id={ `${index}` }
-                type="checkbox"
-                name={ ingredient }
-                checked={ checkboxesState[ingredient] || false }
-                onChange={ ({ target }) => handleCheckboxOnChange(target) }
-              />
-              { `${ingredient} - ${measure}` }
-            </label>
-          </div>
-        );
-      })}
+      && recipeDetails.ingredientsAndMeasures.map(({ ingredient, measure }, index) => (
+        <div key={ index }>
+          <label
+            htmlFor={ `${index}` }
+            data-testid={ `${index}-ingredient-step` }
+          >
+            <input
+              id={ `${index}` }
+              type="checkbox"
+              name={ ingredient }
+              checked={ checkboxesState[ingredient] || false }
+              onChange={ ({ target }) => handleCheckboxOnChange(target) }
+            />
+            { `${ingredient} - ${measure}` }
+          </label>
+        </div>
+      ))}
       </Ingredients>
       <Instructions>
         <Title2 data-testid="instructions">Instructions</Title2>
