@@ -44,7 +44,7 @@ export default function RecipeDetails() {
   const verifyRecipeInProgress = () => {
     const progressKey = currRoute === 'foods' ? 'meals' : 'cocktails';
     const recipesInProgress = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    if (recipesInProgress !== null) {
+    if (recipesInProgress !== null && recipesInProgress.progressKey !== undefined) {
       const drinkOrFoodinProgress = Object.keys(recipesInProgress[progressKey]);
       drinkOrFoodinProgress.forEach((idInProgress) => {
         if (idInProgress === id) {
