@@ -24,7 +24,6 @@ export const saveRecipeProgressOnLocalStorage = (key, currRecipeProgress) => {
       ...progressRecipes,
       [key]: { ...progressRecipes[key], ...currRecipeProgress },
     };
-    console.log(obj);
     localStorage.setItem('inProgressRecipes', JSON.stringify(obj));
   }
 };
@@ -48,7 +47,6 @@ export const saveDoneRecipeOnLocalStorage = (recipeDetails) => {
     const newDoneRecipesList = [...previousDoneRecipes, newDoneRecipe];
     localStorage.setItem('doneRecipes', JSON.stringify(newDoneRecipesList));
   }
-  console.log('doneRecipe', newDoneRecipe);
 };
 
 export const getDoneRecipesFromLocalStorage = (filterType) => {
