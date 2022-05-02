@@ -7,16 +7,19 @@ Projeto desenvolvido em equipe com os colegas de turma:
 Juan Vitor
 
 https://www.linkedin.com/in/juan-vitor-937b5520b/
+
 https://github.com/kodenart
 
 Luana de Moraes
 
 https://www.linkedin.com/in/moraeslua/
+
 https://github.com/moraeslua
 
 Sabrina Teixeira
 
 https://www.linkedin.com/in/txsabrina/
+
 https://github.com/txsabrina
 
 Para aprofundar o nosso conhecimento, optamos por utilizar o React Hooks com Redux para gerenciar o estado da aplicação. 
