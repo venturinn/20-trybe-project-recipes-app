@@ -22,6 +22,8 @@ https://www.linkedin.com/in/txsabrina/
 
 https://github.com/txsabrina
 
+Deploy realizado no Heroku: https://savor-road-recipes-app.herokuapp.com/
+
 Para aprofundar o nosso conhecimento, optamos por utilizar o React Hooks com Redux para gerenciar o estado da aplicação. 
 
 As minhas principais contribuições no projeto foram no desenvolvimento das páginas de Login e RecipeDetails e nos componentes ShareButton, FavoriteButton e CardPairing.
